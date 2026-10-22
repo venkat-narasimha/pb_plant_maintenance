@@ -1,5 +1,6 @@
 [project]
 name = "pb_plant_maintenance"
+version = "1.0.0"
 authors = [
     { name = "Processbricks", email = "venkatnarasimha@processbricks.com"}
 ]

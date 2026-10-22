@@ -1,0 +1,6 @@
+[
+ {"doctype": "Role", "role_name": "PM Manager", "desk_access": 1, "name": "PM Manager"},
+ {"doctype": "Role", "role_name": "Maintenance Planner", "desk_access": 1, "name": "Maintenance Planner"},
+ {"doctype": "Role", "role_name": "Technician", "desk_access": 1, "name": "Technician"},
+ {"doctype": "Role", "role_name": "Operator", "desk_access": 1, "name": "Operator"}
+]

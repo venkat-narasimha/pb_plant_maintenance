@@ -1,0 +1,95 @@
+[
+ {
+  "doctype": "Custom Field",
+  "dt": "Asset",
+  "fieldname": "pm_equipment",
+  "fieldtype": "Link",
+  "label": "PM Equipment",
+  "options": "Equipment",
+  "insert_after": "maintenance_required",
+  "read_only": 1,
+  "module": "Pm Custom",
+  "name": "Asset-pm_equipment"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Work Center",
+  "fieldname": "pm_work_center_type",
+  "fieldtype": "Select",
+  "label": "PM Work Center Type",
+  "options": "\nMechanical\nElectrical\nInstrumentation\nCivil",
+  "insert_after": "description",
+  "module": "Pm Custom",
+  "name": "Work Center-pm_work_center_type"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Work Center",
+  "fieldname": "pm_capacity_per_day",
+  "fieldtype": "Float",
+  "label": "PM Capacity (Hours/Day)",
+  "default": "8",
+  "insert_after": "pm_work_center_type",
+  "module": "Pm Custom",
+  "name": "Work Center-pm_capacity_per_day"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Work Center",
+  "fieldname": "pm_hourly_rate",
+  "fieldtype": "Currency",
+  "label": "PM Hourly Rate",
+  "insert_after": "pm_capacity_per_day",
+  "module": "Pm Custom",
+  "name": "Work Center-pm_hourly_rate"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Stock Entry",
+  "fieldname": "maintenance_order",
+  "fieldtype": "Link",
+  "label": "Maintenance Order",
+  "options": "Maintenance Order",
+  "insert_after": "remarks",
+  "read_only": 1,
+  "module": "Pm Custom",
+  "name": "Stock Entry-maintenance_order"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Stock Entry",
+  "fieldname": "maintenance_confirmation",
+  "fieldtype": "Link",
+  "label": "Maintenance Confirmation",
+  "options": "Maintenance Confirmation",
+  "insert_after": "maintenance_order",
+  "read_only": 1,
+  "module": "Pm Custom",
+  "name": "Stock Entry-maintenance_confirmation"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Journal Entry",
+  "fieldname": "pm_maintenance_order",
+  "fieldtype": "Link",
+  "label": "Maintenance Order",
+  "options": "Maintenance Order",
+  "insert_after": "user_remark",
+  "read_only": 1,
+  "module": "Pm Custom",
+  "name": "Journal Entry-pm_maintenance_order"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Maintenance Confirmation",
+  "fieldname": "stock_entry",
+  "fieldtype": "Link",
+  "label": "Stock Entry",
+  "options": "Stock Entry",
+  "insert_after": "amended_from",
+  "read_only": 1,
+  "no_copy": 1,
+  "module": "Pm Custom",
+  "name": "Maintenance Confirmation-stock_entry"
+ }
+]

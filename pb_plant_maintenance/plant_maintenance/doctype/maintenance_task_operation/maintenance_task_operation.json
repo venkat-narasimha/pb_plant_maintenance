@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "creation": "2024-01-01 00:00:00",
+ "doctype": "DocType",
+ "document_type": "Child Table",
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": [
+  "operation_number", "operation_description", "work_center", "duration_hours",
+  "column_break_1", "required_skills", "spare_parts", "tools_required",
+  "section_break_safety", "safety_instructions"
+ ],
+ "fields": [
+  {"fieldname": "operation_number", "fieldtype": "Int", "label": "Op #",
+   "in_list_view": 1, "columns": 1},
+  {"fieldname": "operation_description", "fieldtype": "Text", "label": "Description",
+   "reqd": 1, "in_list_view": 1, "columns": 4},
+  {"fieldname": "work_center", "fieldtype": "Link", "label": "Work Center",
+   "options": "Work Center", "in_list_view": 1, "columns": 2},
+  {"fieldname": "duration_hours", "fieldtype": "Float", "label": "Duration (Hrs)",
+   "in_list_view": 1, "columns": 1},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "required_skills", "fieldtype": "Small Text", "label": "Required Skills"},
+  {"fieldname": "spare_parts", "fieldtype": "Small Text", "label": "Spare Parts"},
+  {"fieldname": "tools_required", "fieldtype": "Small Text", "label": "Tools Required"},
+  {"fieldname": "section_break_safety", "fieldtype": "Section Break"},
+  {"fieldname": "safety_instructions", "fieldtype": "Text", "label": "Safety Instructions"}
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Pm Custom",
+ "name": "Maintenance Task Operation",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,0 +1,32 @@
+[
+ {
+  "doctype": "Notification",
+  "name": "PM Critical Notification Alert",
+  "subject": "Critical Maintenance Notification",
+  "document_type": "Maintenance Notification",
+  "event": "Value Change",
+  "value_changed": "priority",
+  "condition": "doc.priority == 'Critical' && doc.docstatus == 1",
+  "channel": "Email",
+  "enabled": 1,
+  "module": "Pm Custom",
+  "recipients": [
+   {"receiver_by_role": "PM Manager"}
+  ]
+ },
+ {
+  "doctype": "Notification",
+  "name": "PM Order Completed Alert",
+  "subject": "Maintenance Order Completed",
+  "document_type": "Maintenance Order",
+  "event": "Value Change",
+  "value_changed": "status",
+  "condition": "doc.status == 'Completed' && doc.docstatus == 1",
+  "channel": "Email",
+  "enabled": 1,
+  "module": "Pm Custom",
+  "recipients": [
+   {"receiver_by_role": "PM Manager"}
+  ]
+ }
+]

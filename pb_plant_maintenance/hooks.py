@@ -3,247 +3,88 @@ app_title = "Plant Maintenance"
 app_publisher = "Processbricks"
 app_description = "Custom Plant Maintenance module for ERPNext by Processbricks"
 app_email = "venkatnarasimha@processbricks.com"
-app_license = "mit"
+app_license = "MIT"
+required_apps = ["frappe", "erpnext"]
 
-# Apps
-# ------------------
+# ---------- Document Events ----------
+doc_events = {
+    "Asset": {
+        "on_update": "pb_plant_maintenance.utils.asset_sync.sync_equipment_from_asset",
+        "on_trash": "pb_plant_maintenance.utils.asset_sync.prevent_asset_delete_if_equipment",
+    },
+    "Maintenance Order": {
+        "validate": "pb_plant_maintenance.utils.order_posting.validate_order",
+        "on_submit": "pb_plant_maintenance.utils.order_posting.post_maintenance_costs",
+        "on_cancel": "pb_plant_maintenance.utils.order_posting.reverse_maintenance_costs",
+        "on_update_after_submit": "pb_plant_maintenance.utils.order_posting.handle_status_change",
+    },
+    "Maintenance Confirmation": {
+        "on_submit": "pb_plant_maintenance.utils.order_posting.update_order_from_confirmation",
+        "on_cancel": "pb_plant_maintenance.utils.order_posting.reverse_confirmation",
+    },
+    "Measurement Document": {
+        "on_submit": "pb_plant_maintenance.utils.measurement.process_measurement_document",
+    },
+    "Maintenance Plan": {
+        "on_update": "pb_plant_maintenance.utils.plan.validate_plan_tasks",
+    },
+}
 
-# required_apps = []
+# ---------- Scheduled Tasks ----------
+scheduler_events = {
+    "daily": [
+        "pb_plant_maintenance.tasks.schedule_preventive_maintenance",
+        "pb_plant_maintenance.tasks.send_maintenance_reminders",
+        "pb_plant_maintenance.tasks.check_overdue_notifications",
+        "pb_plant_maintenance.tasks.check_overdue_orders",
+    ],
+    "hourly": [
+        "pb_plant_maintenance.tasks.check_measurement_alerts",
+    ],
+    "weekly": [
+        "pb_plant_maintenance.tasks.generate_maintenance_kpis",
+        "pb_plant_maintenance.tasks.cleanup_old_logs",
+    ],
+    "monthly": [
+        "pb_plant_maintenance.tasks.generate_monthly_reports",
+    ],
+}
 
-# Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "pb_plant_maintenance",
-# 		"logo": "/assets/pb_plant_maintenance/logo.png",
-# 		"title": "Plant Maintenance",
-# 		"route": "/pb_plant_maintenance",
-# 		"has_permission": "pb_plant_maintenance.api.permission.has_app_permission"
-# 	}
-# ]
+# ---------- Permissions ----------
+permission_query_conditions = {
+    "Maintenance Order": "pb_plant_maintenance.utils.permissions.order_query_conditions",
+    "Maintenance Notification": "pb_plant_maintenance.utils.permissions.notification_query_conditions",
+}
 
-# Includes in <head>
-# ------------------
+has_permission = {
+    "Maintenance Order": "pb_plant_maintenance.utils.permissions.order_has_permission",
+}
 
-# include js, css files in header of desk.html
-# app_include_css = "/assets/pb_plant_maintenance/css/pb_plant_maintenance.css"
-# app_include_js = "/assets/pb_plant_maintenance/js/pb_plant_maintenance.js"
+# ---------- Fixtures ----------
+fixtures = [
+    {"dt": "Custom Field", "filters": [["module", "=", "Pb Plant Maintenance"]]},
+    {"dt": "Property Setter", "filters": [["module", "=", "Pb Plant Maintenance"]]},
+    {"dt": "Notification", "filters": [["module", "=", "Pb Plant Maintenance"]]},
+    {"dt": "Dashboard Chart", "filters": [["module", "=", "Pb Plant Maintenance"]]},
+    {"dt": "Role", "filters": [["name", "in", [
+        "PM Manager", "Maintenance Planner", "Technician", "Operator"
+    ]]]},
+]
 
-# include js, css files in header of web template
-# web_include_css = "/assets/pb_plant_maintenance/css/pb_plant_maintenance.css"
-# web_include_js = "/assets/pb_plant_maintenance/js/pb_plant_maintenance.js"
+# ---------- Website ----------
+website_route_rules = [
+    {"from_route": "/pm-dashboard", "to_route": "pm_dashboard"},
+]
 
-# include custom scss in every website theme (without file extension ".scss")
-# website_theme_scss = "pb_plant_maintenance/public/scss/website"
+# ---------- Translations ----------
+# translations via CSV in translations folder
 
-# include js, css files in header of web form
-# webform_include_js = {"doctype": "public/js/doctype.js"}
-# webform_include_css = {"doctype": "public/css/doctype.css"}
+# ---------- Jinja ----------
+jinja = {
+    "methods": [
+        "pb_plant_maintenance.utils.helpers.get_equipment_criticality_color",
+        "pb_plant_maintenance.utils.helpers.format_duration",
+    ]
+}
 
-# include js in page
-# page_js = {"page" : "public/js/file.js"}
-
-# include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-# doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
-# doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
-
-# Svg Icons
-# ------------------
-# include app icons in desk
-# app_include_icons = "pb_plant_maintenance/public/icons.svg"
-
-# Home Pages
-# ----------
-
-# application home page (will override Website Settings)
-# home_page = "login"
-
-# website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
-
-# Generators
-# ----------
-
-# automatically create page for each record of this doctype
-# website_generators = ["Web Page"]
-
-# Jinja
-# ----------
-
-# add methods and filters to jinja environment
-# jinja = {
-# 	"methods": "pb_plant_maintenance.utils.jinja_methods",
-# 	"filters": "pb_plant_maintenance.utils.jinja_filters"
-# }
-
-# Installation
-# ------------
-
-# before_install = "pb_plant_maintenance.install.before_install"
-# after_install = "pb_plant_maintenance.install.after_install"
-
-# Uninstallation
-# ------------
-
-# before_uninstall = "pb_plant_maintenance.uninstall.before_uninstall"
-# after_uninstall = "pb_plant_maintenance.uninstall.after_uninstall"
-
-# Integration Setup
-# ------------------
-# To set up dependencies/integrations with other apps
-# Name of the app being installed is passed as an argument
-
-# before_app_install = "pb_plant_maintenance.utils.before_app_install"
-# after_app_install = "pb_plant_maintenance.utils.after_app_install"
-
-# Integration Cleanup
-# -------------------
-# To clean up dependencies/integrations with other apps
-# Name of the app being uninstalled is passed as an argument
-
-# before_app_uninstall = "pb_plant_maintenance.utils.before_app_uninstall"
-# after_app_uninstall = "pb_plant_maintenance.utils.after_app_uninstall"
-
-# Desk Notifications
-# ------------------
-# See frappe.core.notifications.get_notification_config
-
-# notification_config = "pb_plant_maintenance.notifications.get_notification_config"
-
-# Permissions
-# -----------
-# Permissions evaluated in scripted ways
-
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
-
-# DocType Class
-# ---------------
-# Override standard doctype classes
-
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
-
-# Document Events
-# ---------------
-# Hook on document methods and events
-
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
-
-# Scheduled Tasks
-# ---------------
-
-# scheduler_events = {
-# 	"all": [
-# 		"pb_plant_maintenance.tasks.all"
-# 	],
-# 	"daily": [
-# 		"pb_plant_maintenance.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"pb_plant_maintenance.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"pb_plant_maintenance.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"pb_plant_maintenance.tasks.monthly"
-# 	],
-# }
-
-# Testing
-# -------
-
-# before_tests = "pb_plant_maintenance.install.before_tests"
-
-# Overriding Methods
-# ------------------------------
-#
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "pb_plant_maintenance.event.get_events"
-# }
-#
-# each overriding function accepts a `data` argument;
-# generated from the base implementation of the doctype dashboard,
-# along with any modifications made in other Frappe apps
-# override_doctype_dashboards = {
-# 	"Task": "pb_plant_maintenance.task.get_dashboard_data"
-# }
-
-# exempt linked doctypes from being automatically cancelled
-#
-# auto_cancel_exempted_doctypes = ["Auto Repeat"]
-
-# Ignore links to specified DocTypes when deleting documents
-# -----------------------------------------------------------
-
-# ignore_links_on_delete = ["Communication", "ToDo"]
-
-# Request Events
-# ----------------
-# before_request = ["pb_plant_maintenance.utils.before_request"]
-# after_request = ["pb_plant_maintenance.utils.after_request"]
-
-# Job Events
-# ----------
-# before_job = ["pb_plant_maintenance.utils.before_job"]
-# after_job = ["pb_plant_maintenance.utils.after_job"]
-
-# User Data Protection
-# --------------------
-
-# user_data_fields = [
-# 	{
-# 		"doctype": "{doctype_1}",
-# 		"filter_by": "{filter_by}",
-# 		"redact_fields": ["{field_1}", "{field_2}"],
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_2}",
-# 		"filter_by": "{filter_by}",
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_3}",
-# 		"strict": False,
-# 	},
-# 	{
-# 		"doctype": "{doctype_4}"
-# 	}
-# ]
-
-# Authentication and authorization
-# --------------------------------
-
-# auth_hooks = [
-# 	"pb_plant_maintenance.auth.validate"
-# ]
-
-# Automatically update python controller files with type annotations for this app.
-# export_python_type_annotations = True
-
-# default_log_clearing_doctypes = {
-# 	"Logging DocType Name": 30  # days to retain logs
-# }
-
-# Translation
-# ------------
-# List of apps whose translatable strings should be excluded from this app's translations.
-# ignore_translatable_strings_from = []
-
+after_install = "pb_plant_maintenance.install.after_install"

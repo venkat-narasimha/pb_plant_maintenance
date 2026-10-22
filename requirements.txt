@@ -1,0 +1,2 @@
+# Frappe/ERPNext are installed at framework level
+# No additional Python dependencies required

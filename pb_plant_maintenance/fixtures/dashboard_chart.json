@@ -1,0 +1,44 @@
+[
+ {
+  "doctype": "Dashboard Chart",
+  "name": "PM Open Orders by Status",
+  "chart_name": "PM Open Orders by Status",
+  "chart_type": "Group By",
+  "document_type": "Maintenance Order",
+  "group_by_based_on": "status",
+  "group_by_type": "Count",
+  "type": "Donut",
+  "is_public": 1,
+  "module": "Pm Custom",
+  "filters_json": "[[\"Maintenance Order\",\"docstatus\",\"=\",1]]"
+ },
+ {
+  "doctype": "Dashboard Chart",
+  "name": "PM Monthly Cost Trend",
+  "chart_name": "PM Monthly Cost Trend",
+  "chart_type": "Sum",
+  "document_type": "Maintenance Order",
+  "based_on": "actual_end",
+  "value_based_on": "total_cost",
+  "type": "Line",
+  "time_interval": "Monthly",
+  "timespan": "Last Year",
+  "is_public": 1,
+  "module": "Pm Custom",
+  "filters_json": "[[\"Maintenance Order\",\"docstatus\",\"=\",1]]"
+ },
+ {
+  "doctype": "Dashboard Chart",
+  "name": "PM Breakdown Count",
+  "chart_name": "PM Breakdown Count",
+  "chart_type": "Count",
+  "document_type": "Maintenance Notification",
+  "based_on": "notification_date",
+  "type": "Bar",
+  "time_interval": "Monthly",
+  "timespan": "Last Year",
+  "is_public": 1,
+  "module": "Pm Custom",
+  "filters_json": "[[\"Maintenance Notification\",\"breakdown\",\"=\",1]]"
+ }
+]
