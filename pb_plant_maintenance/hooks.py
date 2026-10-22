@@ -87,4 +87,11 @@ jinja = {
     ]
 }
 
+# Add to hooks.py
+doctype_js = {
+    "Equipment": "public/js/equipment.js",
+    "Maintenance Order": "public/js/maintenance_order.js",
+    "Maintenance Notification": "public/js/maintenance_notification.js",
+}
+
 after_install = "pb_plant_maintenance.install.after_install"
