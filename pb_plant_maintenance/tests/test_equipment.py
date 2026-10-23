@@ -13,7 +13,12 @@ class TestEquipment(unittest.TestCase):
             asset.company = frappe.defaults.get_user_default("Company")
             asset.item_code = frappe.db.get_value("Item", {}, "name") or "Test Item"
             asset.flags.ignore_permissions = True
-            asset.insert()
+        asset.gross_purchase_amount = 5000
+        asset.purchase_date = '2024-01-01'
+        asset.available_for_use_date = '2024-01-01'
+        asset.calculate_depreciation = 0
+
+            asset.insert(ignore_links=True)
             asset_name = asset.name
         else:
             asset_name = "TEST-ASSET-001"

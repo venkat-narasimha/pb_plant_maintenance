@@ -1,6 +1,6 @@
 import frappe
 import unittest
-from frappe.utils import now_datetime, add_hours
+from frappe.utils import now_datetime, add_to_date
 
 
 class TestMaintenanceOrder(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestMaintenanceOrder(unittest.TestCase):
         order.priority = "Medium"
         order.description = "Test order"
         order.planned_start = now_datetime()
-        order.planned_end = add_hours(now_datetime(), 8)
+        order.planned_end = add_to_date(now_datetime(), hours=8)
         order.cost_center = frappe.db.get_value("Cost Center", {}, "name")
         order.append("operations", {
             "operation_number": 1,
@@ -27,7 +27,9 @@ class TestMaintenanceOrder(unittest.TestCase):
             "warehouse": frappe.db.get_value("Warehouse", {}, "name"),
         })
         order.flags.ignore_permissions = True
-        order.insert()
+        order.functional_location = 'Test-Location'
+
+        order.insert(ignore_links=True)
         self.assertEqual(order.total_material_cost, 200)
 
     def tearDown(self):
