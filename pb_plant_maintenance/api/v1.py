@@ -132,8 +132,8 @@ def get_technician_dashboard():
 
 def _get_user_teams(user):
     teams = frappe.get_all(
-        "Asset Maintenance Team Member",
-        filters={"user": user},
+        "Maintenance Team Member",
+        filters={"team_member": user},
         pluck="parent",
     )
     return teams or [""]

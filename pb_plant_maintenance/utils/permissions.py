@@ -9,8 +9,8 @@ def order_query_conditions(user):
         return ""
     # Technicians see only orders assigned to their team or themselves
     teams = frappe.get_all(
-        "Asset Maintenance Team Member",
-        filters={"user": user},
+        "Maintenance Team Member",
+        filters={"team_member": user},
         pluck="parent",
     )
     if not teams:
@@ -39,8 +39,8 @@ def order_has_permission(doc, user=None, permission_type=None):
         return True
     if doc.maintenance_team:
         teams = frappe.get_all(
-            "Asset Maintenance Team Member",
-            filters={"user": user, "parent": doc.maintenance_team},
+            "Maintenance Team Member",
+            filters={"team_member": user, "parent": doc.maintenance_team},
         )
         if teams:
             return True

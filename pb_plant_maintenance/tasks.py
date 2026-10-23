@@ -281,9 +281,9 @@ def get_maintenance_recipients(doc):
     recipients = set()
     if doc.maintenance_team:
         members = frappe.get_all(
-            "Asset Maintenance Team Member",
+            "Maintenance Team Member",
             filters={"parent": doc.maintenance_team},
-            fields=["user"],
+            fields=["team_member"],
         )
-        recipients.update(m.user for m in members if m.user)
+        recipients.update(m.team_member for m in members if m.team_member)
     return list(recipients)
