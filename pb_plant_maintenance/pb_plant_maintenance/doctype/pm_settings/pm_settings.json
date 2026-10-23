@@ -38,7 +38,7 @@
  "links": [],
  "modified": "2024-01-01 00:00:00",
  "modified_by": "Administrator",
- "module": "Pm Custom",
+ "module": "pb_plant_maintenance",
  "name": "PM Settings",
  "owner": "Administrator",
  "permissions": [

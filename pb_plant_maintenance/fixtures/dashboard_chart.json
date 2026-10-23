@@ -9,7 +9,7 @@
   "group_by_type": "Count",
   "type": "Donut",
   "is_public": 1,
-  "module": "Pm Custom",
+  "module": "pb_plant_maintenance",
   "filters_json": "[[\"Maintenance Order\",\"docstatus\",\"=\",1]]"
  },
  {
@@ -24,7 +24,7 @@
   "time_interval": "Monthly",
   "timespan": "Last Year",
   "is_public": 1,
-  "module": "Pm Custom",
+  "module": "pb_plant_maintenance",
   "filters_json": "[[\"Maintenance Order\",\"docstatus\",\"=\",1]]"
  },
  {
@@ -38,7 +38,7 @@
   "time_interval": "Monthly",
   "timespan": "Last Year",
   "is_public": 1,
-  "module": "Pm Custom",
+  "module": "pb_plant_maintenance",
   "filters_json": "[[\"Maintenance Notification\",\"breakdown\",\"=\",1]]"
  }
 ]

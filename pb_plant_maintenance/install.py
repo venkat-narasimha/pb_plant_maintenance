@@ -29,7 +29,7 @@ def setup_workspace():
     workspace = frappe.new_doc("Workspace")
     workspace.label = "Plant Maintenance"
     workspace.title = "Plant Maintenance"
-    workspace.module = "Pm Custom"
+    workspace.module = "pb_plant_maintenance"
     workspace.public = 1
     workspace.is_hidden = 0
     workspace.icon = "tool"

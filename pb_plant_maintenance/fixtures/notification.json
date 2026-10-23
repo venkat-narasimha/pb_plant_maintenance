@@ -9,7 +9,7 @@
   "condition": "doc.priority == 'Critical' && doc.docstatus == 1",
   "channel": "Email",
   "enabled": 1,
-  "module": "Pm Custom",
+  "module": "pb_plant_maintenance",
   "recipients": [
    {"receiver_by_role": "PM Manager"}
   ]
@@ -24,7 +24,7 @@
   "condition": "doc.status == 'Completed' && doc.docstatus == 1",
   "channel": "Email",
   "enabled": 1,
-  "module": "Pm Custom",
+  "module": "pb_plant_maintenance",
   "recipients": [
    {"receiver_by_role": "PM Manager"}
   ]

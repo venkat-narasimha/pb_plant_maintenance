@@ -7,7 +7,7 @@
  "is_standard": "Yes",
  "modified": "2024-01-01 00:00:00",
  "modified_by": "Administrator",
- "module": "Pm Custom",
+ "module": "pb_plant_maintenance",
  "name": "MTBF MTTR",
  "owner": "Administrator",
  "ref_doctype": "Equipment",
