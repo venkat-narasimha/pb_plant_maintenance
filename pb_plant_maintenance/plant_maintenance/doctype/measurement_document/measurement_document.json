@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2024-01-01 00:00:00",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "field_order": [
+  "naming_series", "measuring_point", "equipment", "reading_date",
+  "column_break_1", "reading_value", "reading_by", "is_exception",
+  "section_break_notes", "remarks"
+ ],
+ "fields": [
+  {"fieldname": "naming_series", "fieldtype": "Select", "label": "Series",
+   "options": "MD-.YYYY.-.#####", "reqd": 1, "default": "MD-.YYYY.-.#####", "hidden": 1},
+  {"fieldname": "measuring_point", "fieldtype": "Link", "label": "Measuring Point",
+   "options": "Measuring Point", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "equipment", "fieldtype": "Link", "label": "Equipment",
+   "options": "Equipment", "fetch_from": "measuring_point.equipment",
+   "read_only": 1, "in_list_view": 1},
+  {"fieldname": "reading_date", "fieldtype": "Datetime", "label": "Reading Date",
+   "reqd": 1, "default": "Now", "in_list_view": 1},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "reading_value", "fieldtype": "Float", "label": "Reading Value",
+   "reqd": 1, "in_list_view": 1},
+  {"fieldname": "reading_by", "fieldtype": "Link", "label": "Reading By",
+   "options": "User", "reqd": 1, "default": "__user"},
+  {"fieldname": "is_exception", "fieldtype": "Check", "label": "Out of Limits",
+   "read_only": 1},
+  {"fieldname": "section_break_notes", "fieldtype": "Section Break"},
+  {"fieldname": "remarks", "fieldtype": "Text", "label": "Remarks"}
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Plant Maintenance",
+ "name": "Measurement Document",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {"amend": 1, "cancel": 1, "create": 1, "delete": 1, "print": 1, "read": 1,
+   "report": 1, "role": "PM Manager", "submit": 1, "write": 1},
+  {"amend": 1, "cancel": 1, "create": 1, "print": 1, "read": 1, "report": 1,
+   "role": "Maintenance Planner", "submit": 1, "write": 1},
+  {"create": 1, "print": 1, "read": 1, "role": "Technician", "submit": 1, "write": 1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

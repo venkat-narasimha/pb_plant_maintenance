@@ -8,7 +8,7 @@
   "options": "Equipment",
   "insert_after": "maintenance_required",
   "read_only": 1,
-  "module": "pb_plant_maintenance",
+  "module": "Plant Maintenance",
   "name": "Asset-pm_equipment"
  },
  {
@@ -19,7 +19,7 @@
   "label": "PM Work Center Type",
   "options": "\nMechanical\nElectrical\nInstrumentation\nCivil",
   "insert_after": "description",
-  "module": "pb_plant_maintenance",
+  "module": "Plant Maintenance",
   "name": "Work Center-pm_work_center_type"
  },
  {
@@ -30,7 +30,7 @@
   "label": "PM Capacity (Hours/Day)",
   "default": "8",
   "insert_after": "pm_work_center_type",
-  "module": "pb_plant_maintenance",
+  "module": "Plant Maintenance",
   "name": "Work Center-pm_capacity_per_day"
  },
  {
@@ -40,7 +40,7 @@
   "fieldtype": "Currency",
   "label": "PM Hourly Rate",
   "insert_after": "pm_capacity_per_day",
-  "module": "pb_plant_maintenance",
+  "module": "Plant Maintenance",
   "name": "Work Center-pm_hourly_rate"
  },
  {
@@ -52,7 +52,7 @@
   "options": "Maintenance Order",
   "insert_after": "remarks",
   "read_only": 1,
-  "module": "pb_plant_maintenance",
+  "module": "Plant Maintenance",
   "name": "Stock Entry-maintenance_order"
  },
  {
@@ -64,7 +64,7 @@
   "options": "Maintenance Confirmation",
   "insert_after": "maintenance_order",
   "read_only": 1,
-  "module": "pb_plant_maintenance",
+  "module": "Plant Maintenance",
   "name": "Stock Entry-maintenance_confirmation"
  },
  {
@@ -76,7 +76,7 @@
   "options": "Maintenance Order",
   "insert_after": "user_remark",
   "read_only": 1,
-  "module": "pb_plant_maintenance",
+  "module": "Plant Maintenance",
   "name": "Journal Entry-pm_maintenance_order"
  },
  {
@@ -89,7 +89,7 @@
   "insert_after": "amended_from",
   "read_only": 1,
   "no_copy": 1,
-  "module": "pb_plant_maintenance",
+  "module": "Plant Maintenance",
   "name": "Maintenance Confirmation-stock_entry"
  }
 ]
