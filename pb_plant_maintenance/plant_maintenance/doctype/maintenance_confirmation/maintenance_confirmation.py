@@ -26,7 +26,7 @@ class MaintenanceConfirmation(Document):
             )
             if work_center:
                 self.labor_rate = flt(frappe.db.get_value(
-                    "Work Center", work_center, "pm_hourly_rate"
+                    "Workstation", work_center, "pm_hourly_rate"
                 )) or 0.0
         self.labor_cost = flt(self.labor_hours) * flt(self.labor_rate)
 

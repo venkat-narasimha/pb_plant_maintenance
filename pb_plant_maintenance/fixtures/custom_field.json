@@ -13,35 +13,35 @@
  },
  {
   "doctype": "Custom Field",
-  "dt": "Work Center",
+  "dt": "Workstation",
   "fieldname": "pm_work_center_type",
   "fieldtype": "Select",
   "label": "PM Work Center Type",
   "options": "\nMechanical\nElectrical\nInstrumentation\nCivil",
   "insert_after": "description",
   "module": "Plant Maintenance",
-  "name": "Work Center-pm_work_center_type"
+  "name": "Workstation-pm_work_center_type"
  },
  {
   "doctype": "Custom Field",
-  "dt": "Work Center",
+  "dt": "Workstation",
   "fieldname": "pm_capacity_per_day",
   "fieldtype": "Float",
   "label": "PM Capacity (Hours/Day)",
   "default": "8",
   "insert_after": "pm_work_center_type",
   "module": "Plant Maintenance",
-  "name": "Work Center-pm_capacity_per_day"
+  "name": "Workstation-pm_capacity_per_day"
  },
  {
   "doctype": "Custom Field",
-  "dt": "Work Center",
+  "dt": "Workstation",
   "fieldname": "pm_hourly_rate",
   "fieldtype": "Currency",
   "label": "PM Hourly Rate",
   "insert_after": "pm_capacity_per_day",
   "module": "Plant Maintenance",
-  "name": "Work Center-pm_hourly_rate"
+  "name": "Workstation-pm_hourly_rate"
  },
  {
   "doctype": "Custom Field",

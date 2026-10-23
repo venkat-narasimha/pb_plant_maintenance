@@ -16,7 +16,7 @@
   {"fieldname": "operation_description", "fieldtype": "Text", "label": "Description",
    "reqd": 1, "in_list_view": 1, "columns": 4},
   {"fieldname": "work_center", "fieldtype": "Link", "label": "Work Center",
-   "options": "Work Center", "in_list_view": 1, "columns": 2},
+   "options": "Workstation", "in_list_view": 1, "columns": 2},
   {"fieldname": "duration_hours", "fieldtype": "Float", "label": "Duration (Hrs)",
    "in_list_view": 1, "columns": 1},
   {"fieldname": "column_break_1", "fieldtype": "Column Break"},

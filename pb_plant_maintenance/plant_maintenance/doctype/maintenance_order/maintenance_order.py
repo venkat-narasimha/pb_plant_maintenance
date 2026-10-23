@@ -33,7 +33,7 @@ class MaintenanceOrder(Document):
             rate = 0.0
             if op.work_center:
                 rate = flt(frappe.db.get_value(
-                    "Work Center", op.work_center, "pm_hourly_rate"
+                    "Workstation", op.work_center, "pm_hourly_rate"
                 )) or 0.0
             op.labor_cost = hours * rate
             labor_cost += op.labor_cost

@@ -45,7 +45,7 @@
   {"fieldname": "maintenance_team", "fieldtype": "Link", "label": "Maintenance Team",
    "options": "Asset Maintenance Team"},
   {"fieldname": "default_work_center", "fieldtype": "Link", "label": "Default Work Center",
-   "options": "Work Center"},
+   "options": "Workstation"},
   {"fieldname": "section_break_technical", "fieldtype": "Section Break", "label": "Technical Data"},
   {"fieldname": "technical_data", "fieldtype": "Table", "label": "Technical Specifications",
    "options": "Technical Data"},

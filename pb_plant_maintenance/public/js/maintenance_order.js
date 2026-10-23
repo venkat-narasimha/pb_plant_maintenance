@@ -83,7 +83,7 @@ frappe.ui.form.on('Order Operation', {
     planned_duration(frm, cdt, cdn) {
         let row = locals[cdt][cdn];
         if (row.work_center && row.planned_duration) {
-            frappe.db.get_value('Work Center', row.work_center, 'pm_hourly_rate').then(r => {
+            frappe.db.get_value('Workstation', row.work_center, 'pm_hourly_rate').then(r => {
                 if (r.message && r.message.pm_hourly_rate) {
                     frappe.model.set_value(cdt, cdn, 'labor_cost',
                         row.planned_duration * r.message.pm_hourly_rate);
