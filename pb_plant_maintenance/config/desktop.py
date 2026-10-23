@@ -3,7 +3,7 @@ from frappe import _
 def get_data():
     return [
         {
-            "module_name": "PM Custom",
+            "module_name": "pb_plant_maintenance",
             "color": "#3498db",
             "icon": "octicon octicon-tools",
             "type": "module",
@@ -25,7 +25,7 @@ def get_data():
             ],
         },
         {
-            "module_name": "PM Custom",
+            "module_name": "pb_plant_maintenance",
             "color": "#e74c3c",
             "icon": "octicon octicon-graph",
             "type": "module",

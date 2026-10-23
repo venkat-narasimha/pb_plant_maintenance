@@ -7,7 +7,7 @@ def after_install():
     setup_roles()
     setup_workspace()
     frappe.db.commit()
-    print(_("PM Custom app installed successfully."))
+    print(_("pb_plant_maintenance app installed successfully."))
 
 
 def setup_roles():
