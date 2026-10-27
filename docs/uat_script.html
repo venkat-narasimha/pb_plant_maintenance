@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Plant Maintenance — UAT Script</title>
+<style>
+  :root{--ink:#1c2733;--muted:#5b6b7b;--line:#dbe3ea;--bg:#f5f7fa;--brand:#0f4c81;--ok:#1e8e5a;--warn:#b26a00;--fail:#c0392b}
+  *{box-sizing:border-box}
+  body{margin:0;font:13px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);padding:24px 40px;max-width:1100px}
+  h1{color:var(--brand);border-bottom:3px solid var(--brand);padding-bottom:6px;margin:0 0 6px}
+  h2{color:var(--brand);border-bottom:1px solid var(--line);padding-bottom:4px;margin:28px 0 10px}
+  h3{margin:18px 0 6px;color:#1273b8}
+  .meta{background:#fff;border:1px solid var(--line);padding:12px 18px;border-radius:6px;margin:10px 0 24px}
+  .meta table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .meta td{padding:3px 8px;border-bottom:1px dotted var(--line)}
+  .meta td:first-child{font-weight:700;width:180px;color:var(--muted)}
+  table.tc{width:100%;border-collapse:collapse;margin:8px 0;background:#fff;font-size:12.5px}
+  table.tc th,table.tc td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}
+  table.tc th{background:#eaf1f7;font-weight:700}
+  table.tc tr:nth-child(even) td{background:#fafcfe}
+  table.tc td.id{font-weight:700;color:var(--brand);width:70px;text-align:center}
+  table.tc td.role{width:110px;font-style:italic;color:var(--muted)}
+  table.tc td.pf{width:60px;text-align:center}
+  table.tc td.notes{width:160px}
+  .pf-box{display:inline-block;width:16px;height:16px;border:1.5px solid #888;vertical-align:middle;margin-right:4px}
+  code{background:#e8eef4;padding:1px 5px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px}
+  ol,ul{margin:4px 0;padding-left:20px}
+  li{margin:2px 0}
+  .pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700}
+  .p-g{background:#d9eede;color:var(--ok)}.p-y{background:#fde9c8;color:var(--warn)}.p-r{background:#f7d6d1;color:var(--fail)}
+  .section-tag{display:inline-block;background:var(--brand);color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;margin-right:8px}
+  .signoff{background:#fff;border:1px solid var(--line);padding:18px;border-radius:6px;margin-top:30px}
+  .signoff table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+  .signoff td,.signoff th{border:1px solid var(--line);padding:8px;text-align:left}
+  .signoff th{background:#eaf1f7}
+  .signoff .sig{height:40px}
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 20px}
+  .sum-card{background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:6px;text-align:center}
+  .sum-card .n{font-size:24px;font-weight:700;color:var(--brand)}
+  .sum-card .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  @media print{body{padding:10px}.meta,.signoff{page-break-inside:avoid}table.tc{page-break-inside:auto}table.tc tr{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<h1>Plant Maintenance Module — User Acceptance Test (UAT) Script</h1>
+<p>End-to-end validation of the <code>pb_plant_maintenance</code> custom app prior to production go-live.</p>
+
+<div class="meta">
+<table>
+  <tr><td>Document Version</td><td>1.0</td><td>Prepared Date</td><td>28-Oct-2026</td></tr>
+  <tr><td>Application</td><td>pb_plant_maintenance v1.0.0</td><td>Site (UAT)</td><td>dev-erp.duckdns.org</td></tr>
+  <tr><td>Prepared By</td><td>________________</td><td>Reviewed By</td><td>________________</td></tr>
+  <tr><td>Approved By</td><td>________________</td><td>Target Go-Live</td><td>________________</td></tr>
+</table>
+</div>
+
+<h2>1. Test Summary</h2>
+<div class="summary">
+  <div class="sum-card"><div class="n">29</div><div class="l">Total Test Cases</div></div>
+  <div class="sum-card"><div class="n">4</div><div class="l">Roles Tested</div></div>
+  <div class="sum-card"><div class="n">8</div><div class="l">Test Areas</div></div>
+  <div class="sum-card"><div class="n" id="passCount">—</div><div class="l">Pass / Fail / Pending</div></div>
+</div>
+
+<h2>2. Prerequisites</h2>
+<ul>
+  <li>UAT site <code>dev-erp.duckdns.org</code> is up with <code>pb_plant_maintenance</code> installed &amp; migrated</li>
+  <li>Test users created: <code>pm.manager@</code>, <code>pm.planner@</code>, <code>pm.tech@</code>, <code>pm.operator@</code> — each with their role + added to the <strong>Mechanical Maintenance Team</strong></li>
+  <li>Company <strong>Processleap</strong> configured with Cost Center <code>Main - PL</code>, expense accounts <code>Maintenance Expense - Labor - PL</code> and <code>- Materials - PL</code></li>
+  <li>At least one ERPNext Asset (e.g. <code>CNC Machine 01</code>) and one Workstation (<code>Maintenance Bay 1</code> with PM Hourly Rate = 75) created</li>
+  <li>Outgoing email configured (or accept email-related tests as "skipped" with note)</li>
+</ul>
+
+<h2>3. Test Cases</h2>
+
+<h3><span class="section-tag">A</span> Master Data (TC-001 → TC-005)</h3>
+<table class="tc">
+<tr><th>ID</th><th>Scenario</th><th>Role</th><th>Steps</th><th>Expected Result</th><th class="pf">P / F</th><th class="notes">Notes</th></tr>
+<tr><td class="id">TC-001</td><td>Create Equipment</td><td class="role">PM Planner</td><td><ol><li>Workspace → Equipment → Add</li><li>Name: <code>Test CNC</code></li><li>Asset: existing asset</li><li>Category: Production · Criticality: High</li><li>Save</li></ol></td><td>ID <code>EQ-####</code> generated; Asset form now shows PM Equipment link in collapsed <em>Maintenance</em> section</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-002</td><td>Create Functional Location</td><td class="role">PM Planner</td><td><ol><li>Functional Location → Add</li><li>Set parent &amp; type</li><li>Save</li></ol></td><td>Tree structure visible; hierarchy preserved</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-003</td><td>Create Measuring Point</td><td class="role">PM Planner</td><td><ol><li>Measuring Point → Add</li><li>Link to Equipment</li><li>Set lower/upper limits</li><li>Save</li></ol></td><td>ID <code>MP-####</code>; limits saved</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-004</td><td>Damage / Cause Codes seeded</td><td class="role">PM Manager</td><td><ol><li>Damage Code List</li><li>Verify 10 defaults exist (D001–D010)</li></ol></td><td>10 seeded records visible</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-005</td><td>PM Settings configured</td><td class="role">PM Manager</td><td><ol><li>Open PM Settings</li><li>Verify Cost Center + 2 expense accounts populated</li></ol></td><td>All required fields populated</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+</table>
+
+<h3><span class="section-tag">B</span> Notifications & Orders (TC-006 → TC-012)</h3>
+<table class="tc">
+<tr><th>ID</th><th>Scenario</th><th>Role</th><th>Steps</th><th>Expected Result</th><th class="pf">P / F</th><th class="notes">Notes</th></tr>
+<tr><td class="id">TC-006</td><td>Create Breakdown Notification</td><td class="role">Operator</td><td><ol><li>Maintenance Notification → Add</li><li>Type: Malfunction</li><li>Tick <em>Breakdown</em></li><li>Priority: Critical</li><li>Submit</li></ol></td><td>ID <code>MN-YYYY-#####</code>; status = Open; PM Manager notified by email</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-007</td><td>Convert Notification → Order</td><td class="role">PM Planner</td><td><ol><li>Open submitted notification</li><li>Click <em>Convert to Maintenance Order</em></li><li>Confirm dialog</li></ol></td><td>Order opens; notification status = Converted to Order; two-way link established</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-008</td><td>Add Operations to Order</td><td class="role">PM Planner</td><td><ol><li>On the order → Operations → Add Row</li><li>Workstation = Maintenance Bay 1</li><li>Planned Hours = 2</li><li>Assigned To = pm.tech</li><li>Save + Submit</li></ol></td><td>Status flips from Draft → <span class="pill p-g">Planned</span> on submit</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-009</td><td>Add Required Spare Parts</td><td class="role">PM Planner</td><td><ol><li>Required Parts → Add Row</li><li>Select item, qty, warehouse</li><li>Save</li></ol></td><td>Part row persists; total cost auto-calculated</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-010</td><td>Start Work</td><td class="role">Technician</td><td><ol><li>Login as pm.tech</li><li>Open assigned order</li><li>⋮ Actions → Start Work</li></ol></td><td>Status → <span class="pill p-y">In Progress</span>; actual_start stamped</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-011</td><td>Row-level security</td><td class="role">Technician</td><td><ol><li>Technician views Order List</li><li>Verify only team-assigned orders visible</li><li>Login as Operator → verify cannot see orders</li></ol></td><td>Technician sees only their team's orders; Operator sees none</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-012</td><td>Copy from Task List</td><td class="role">PM Planner</td><td><ol><li>Create Maintenance Task List with 3 ops</li><li>On new order → ⋮ Actions → Copy from Task List</li></ol></td><td>Operations copied into order</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+</table>
+
+<h3><span class="section-tag">C</span> Confirmations & Financial Posting (TC-013 → TC-016)</h3>
+<table class="tc">
+<tr><th>ID</th><th>Scenario</th><th>Role</th><th>Steps</th><th>Expected Result</th><th class="pf">P / F</th><th class="notes">Notes</th></tr>
+<tr><td class="id">TC-013</td><td>Record Partial Confirmation</td><td class="role">Technician</td><td><ol><li>⋮ Actions → Record Confirmation</li><li>Type: Partial, Op # 10, Hours: 1</li><li>Submit</li></ol></td><td>Operation status = In Progress; order stays In Progress</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-014</td><td>Record Final Confirmation + materials</td><td class="role">Technician</td><td><ol><li>Record Confirmation → Type: Final</li><li>Labor Hours: 1.5</li><li>Add 1 material row</li><li>Submit</li></ol></td><td>Operation = Completed; Stock Entry auto-created for material issue</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-015</td><td>Labor Journal Entry posted</td><td class="role">PM Manager</td><td><ol><li>Open Journal Entry List</li><li>Filter by linked Maintenance Order</li></ol></td><td>JE exists; debit = labor expense account; company = Processleap (not Demo); amount = hours × workstation rate</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-016</td><td>Order & Notification closed</td><td class="role">PM Manager</td><td><ol><li>Open order → status = <span class="pill p-g">Completed</span></li><li>Open source notification → status = Closed</li></ol></td><td>Both auto-transitioned</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+</table>
+
+<h3><span class="section-tag">D</span> Preventive Maintenance (TC-017 → TC-019)</h3>
+<table class="tc">
+<tr><th>ID</th><th>Scenario</th><th>Role</th><th>Steps</th><th>Expected Result</th><th class="pf">P / F</th><th class="notes">Notes</th></tr>
+<tr><td class="id">TC-017</td><td>Create Monthly Maintenance Plan</td><td class="role">PM Planner</td><td><ol><li>Maintenance Plan → Add</li><li>Add task: Monthly, Auto-create = on</li><li>Save</li></ol></td><td>Next due date auto-computed</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-018</td><td>Trigger scheduler manually</td><td class="role">Admin</td><td><code>bench execute pb_plant_maintenance.tasks.schedule_preventive_maintenance</code></td><td>Command completes without traceback</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-019</td><td>Reschedule on completion</td><td class="role">PM Planner</td><td><ol><li>Complete the auto-generated order</li><li>Reopen plan</li></ol></td><td>Task's next_due_date advanced by one period</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+</table>
+
+<h3><span class="section-tag">E</span> Measurements & Exceptions (TC-020 → TC-022)</h3>
+<table class="tc">
+<tr><th>ID</th><th>Scenario</th><th>Role</th><th>Steps</th><th>Expected Result</th><th class="pf">P / F</th><th class="notes">Notes</th></tr>
+<tr><td class="id">TC-020</td><td>Record in-limit reading</td><td class="role">Technician</td><td><ol><li>Measurement Document → Add</li><li>Value within limits</li><li>Submit</li></ol></td><td>Counter updated; no notification</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-021</td><td>Out-of-limit reading → exception</td><td class="role">Technician</td><td><ol><li>Record reading above upper limit</li><li>Submit</li></ol></td><td>Auto-created High-priority Notification</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-022</td><td>API ingestion</td><td class="role">Admin</td><td><code>POST /api/method/pb_plant_maintenance.api.v1.record_measurement</code></td><td>Document created; JSON response includes <code>name</code> and <code>is_exception</code></td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+</table>
+
+<h3><span class="section-tag">F</span> Reports (TC-023 → TC-027)</h3>
+<table class="tc">
+<tr><th>ID</th><th>Scenario</th><th>Role</th><th>Steps</th><th>Expected Result</th><th class="pf">P / F</th><th class="notes">Notes</th></tr>
+<tr><td class="id">TC-023</td><td>Equipment Register</td><td class="role">PM Manager</td><td>Open report, filter by category</td><td>All equipment rows; filters functional</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-024</td><td>Maintenance Order List</td><td class="role">PM Planner</td><td>Filter by date range + status</td><td>Correct orders shown with costs</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-025</td><td>Cost Analysis</td><td class="role">PM Manager</td><td>Open report</td><td>Bar chart renders; totals match orders</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-026</td><td>Downtime Analysis</td><td class="role">PM Manager</td><td>Open report</td><td>Per-order downtime shown</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-027</td><td>MTBF / MTTR</td><td class="role">PM Planner</td><td>Open report</td><td>Metrics calculated for corrective orders</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+</table>
+
+<h3><span class="section-tag">G</span> API & Automation (TC-028 → TC-029)</h3>
+<table class="tc">
+<tr><th>ID</th><th>Scenario</th><th>Role</th><th>Steps</th><th>Expected Result</th><th class="pf">P / F</th><th class="notes">Notes</th></tr>
+<tr><td class="id">TC-028</td><td>REST KPIs endpoint</td><td class="role">Admin</td><td><code>curl -X GET .../api/method/pb_plant_maintenance.api.v1.get_kpis -H "Authorization: token KEY:SECRET"</code></td><td>200 OK; JSON includes total_orders, total_cost</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+<tr><td class="id">TC-029</td><td>Scheduled task idempotency</td><td class="role">Admin</td><td>Run <code>check_overdue_orders</code> twice in succession</td><td>No duplicate notifications/emails; no exceptions</td><td class="pf"><span class="pf-box"></span></td><td class="notes"></td></tr>
+</table>
+
+<h2>4. Results Summary</h2>
+<table class="tc">
+<tr><th>Metric</th><th>Count</th><th>%</th></tr>
+<tr><td>Total Test Cases</td><td>29</td><td>100%</td></tr>
+<tr><td>Passed</td><td></td><td></td></tr>
+<tr><td>Failed</td><td></td><td></td></tr>
+<tr><td>Blocked / Skipped</td><td></td><td></td></tr>
+<tr><td>Not Run</td><td></td><td></td></tr>
+</table>
+
+<h2>5. Known Issues & Risks</h2>
+<table class="tc">
+<tr><th>#</th><th>Test Ref</th><th>Description</th><th>Severity</th><th>Resolution Plan</th></tr>
+<tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<h2>6. Go / No-Go Decision</h2>
+<table class="tc">
+<tr><th>Criteria</th><th>Result</th></tr>
+<tr><td>All critical test cases (TC-001, 006–010, 013–016) pass</td><td><span class="pf-box"></span> Yes / No</td></tr>
+<tr><td>No Severity-1 defects open</td><td><span class="pf-box"></span> Yes / No</td></tr>
+<tr><td>PM Manager & Maintenance Planner sign-off</td><td><span class="pf-box"></span> Yes / No</td></tr>
+<tr><td>Production deployment plan reviewed</td><td><span class="pf-box"></span> Yes / No</td></tr>
+</table>
+
+<div class="signoff">
+<h2 style="margin-top:0">7. Sign-Off</h2>
+<table>
+<tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr>
+<tr><td>PM Manager (Business Owner)</td><td></td><td class="sig"></td><td></td></tr>
+<tr><td>Maintenance Planner (Power User)</td><td></td><td class="sig"></td><td></td></tr>
+<tr><td>IT / System Admin</td><td></td><td class="sig"></td><td></td></tr>
+<tr><td>Project Sponsor</td><td></td><td class="sig"></td><td></td></tr>
+</table>
+<p style="font-size:12px;color:var(--muted);margin-top:12px">By signing above, the stakeholders confirm that the Plant Maintenance module meets the functional requirements and is approved for production deployment subject to resolution of any listed issues.</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Plant Maintenance — Technician Quick Reference</title>
+<style>
+  @page{size:A4 landscape;margin:8mm}
+  *{box-sizing:border-box}
+  body{margin:0;font:11px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1c2733;background:#fff;padding:10mm}
+  header{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #0f4c81;padding-bottom:6px;margin-bottom:10px}
+  header h1{margin:0;font-size:18px;color:#0f4c81}
+  header .meta{font-size:10px;color:#5b6b7b;text-align:right}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .card{border:1px solid #dbe3ea;border-radius:6px;padding:8px 10px;background:#fafcfe;page-break-inside:avoid}
+  .card h2{margin:0 0 5px;font-size:12px;color:#0f4c81;border-bottom:1px solid #dbe3ea;padding-bottom:3px}
+  .card.alert{border-left:4px solid #c0392b;background:#fef4f3}
+  .card.do{border-left:4px solid #1e8e5a;background:#f0f9f4}
+  .card.info{border-left:4px solid #1273b8;background:#eef5fb}
+  ol,ul{margin:3px 0 0;padding-left:18px}
+  li{margin:2px 0}
+  code{background:#e8eef4;padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px}
+  .pill{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700;margin:0 2px}
+  .p-g{background:#d9eede;color:#1e8e5a}.p-b{background:#dce8f5;color:#0f4c81}.p-y{background:#fde9c8;color:#b26a00}.p-r{background:#f7d6d1;color:#c0392b}
+  .step{font-weight:700;color:#0f4c81}
+  .icon{display:inline-block;width:16px;height:16px;text-align:center;border-radius:50%;color:#fff;font-size:10px;line-height:16px;margin-right:4px;vertical-align:middle}
+  .i1{background:#0f4c81}.i2{background:#1273b8}.i3{background:#1e8e5a}.i4{background:#b26a00}.i5{background:#c0392b}
+  .footer{margin-top:10px;font-size:9.5px;color:#5b6b7b;border-top:1px solid #dbe3ea;padding-top:5px;display:flex;justify-content:space-between}
+  @media print{body{padding:0} .card{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🔧 Plant Maintenance — Technician Quick Reference</h1>
+    <div>Your one-page guide to the daily maintenance workflow</div>
+  </div>
+  <div class="meta">
+    <strong>Role:</strong> Technician<br>
+    <strong>App:</strong> pb_plant_maintenance v1.0<br>
+    <strong>Site:</strong> dev-erp.duckdns.org
+  </div>
+</header>
+
+<div class="grid">
+
+  <div class="card do">
+    <h2><span class="icon i1">1</span> My Daily Flow</h2>
+    <ol>
+      <li>Log in at <code>/app/plant-maintenance</code></li>
+      <li>Click the <strong>Maintenance Orders</strong> shortcut</li>
+      <li>Filter: <code>Status = Planned</code> or <code>In Progress</code></li>
+      <li>You only see orders <strong>assigned to your team</strong> or to you</li>
+      <li>Open the order → read <strong>Operations</strong> table → click <strong>Start Work</strong></li>
+    </ol>
+    <p>👉 <em>Can't see any orders?</em> Ask your PM Manager to add you to an <strong>Asset Maintenance Team</strong>.</p>
+  </div>
+
+  <div class="card do">
+    <h2><span class="icon i2">2</span> Start & Run Work</h2>
+    <ol>
+      <li>Open order → top-right menu <strong>⋮ Actions</strong></li>
+      <li><span class="pill p-b">Start Work</span> → status flips to <em>In Progress</em>, actual start stamped</li>
+      <li>Carry out each <strong>Operation</strong> row on the order</li>
+      <li>Use spare parts from the <strong>Required Parts</strong> list (already reserved for you)</li>
+      <li>When finished: <strong>⋮ Actions → Record Confirmation</strong></li>
+    </ol>
+  </div>
+
+  <div class="card do">
+    <h2><span class="icon i3">3</span> Record Confirmation</h2>
+    <ol>
+      <li><strong>Confirmation Type:</strong>
+        <span class="pill p-y">Partial</span> = more work left
+        <span class="pill p-g">Final</span> = job done
+      </li>
+      <li><strong>Operation #:</strong> match the Op # from the order (e.g. <code>10</code>)</li>
+      <li><strong>Labor Hours:</strong> actual time spent (e.g. <code>2.5</code>)</li>
+      <li><strong>Materials Used:</strong> add rows for every part consumed (item + qty + warehouse)</li>
+      <li><strong>Equipment Status After:</strong> <code>Running</code> / <code>Idle</code> / <code>Down</code></li>
+      <li><strong>Save → Submit</strong>. Final confirmation auto-completes the order & posts costs.</li>
+    </ol>
+  </div>
+
+  <div class="card alert">
+    <h2><span class="icon i5">!</span> Report a Breakdown (Notification)</h2>
+    <ol>
+      <li>Workspace → <strong>Maintenance Notifications</strong> → Add</li>
+      <li><strong>Type:</strong> Malfunction · <strong>Priority:</strong> High or Critical</li>
+      <li>Select <strong>Equipment</strong> + fill <strong>Short Description</strong></li>
+      <li>Tick <span class="pill p-r">Breakdown</span> if the machine is <strong>down now</strong></li>
+      <li>Save + Submit → <strong>PM Manager is auto-emailed</strong> on Critical</li>
+      <li>Planner will convert it into a Maintenance Order for you</li>
+    </ol>
+  </div>
+
+  <div class="card info">
+    <h2><span class="icon i4">M</span> Log a Measurement</h2>
+    <ol>
+      <li>Workspace → <strong>Measurement Documents</strong> → Add</li>
+      <li>Select the <strong>Measuring Point</strong> (e.g. bearing temp, vibration)</li>
+      <li>Enter <strong>Reading Value</strong> + date</li>
+      <li>Submit — counter updates automatically</li>
+      <li>If the reading is <strong>outside limits</strong>, the system auto-creates a High-priority Notification</li>
+    </ol>
+    <p>💡 Check your <strong>ToDo list</strong> daily for due measurement tasks.</p>
+  </div>
+
+  <div class="card info">
+    <h2>🔑 Key Fields You'll See</h2>
+    <table style="width:100%;font-size:10px;border-collapse:collapse">
+      <tr><td><strong>Order status</strong></td><td>Draft → Planned → In Progress → Completed</td></tr>
+      <tr><td><strong>Priority</strong></td><td>Critical · High · Medium · Low</td></tr>
+      <tr><td><strong>Op #</strong></td><td>Operation sequence (10, 20, 30…)</td></tr>
+      <tr><td><strong>Work Center</strong></td><td>Actually a "Workstation" — where the work happens</td></tr>
+      <tr><td><strong>Labor Hours</strong></td><td>Auto-multiplied by workstation rate → cost</td></tr>
+      <tr><td><strong>docstatus</strong></td><td>Saved (0) / Submitted (1) / Cancelled (2)</td></tr>
+    </table>
+  </div>
+
+  <div class="card alert">
+    <h2>🚨 Troubleshooting (Top 5)</h2>
+    <table style="width:100%;font-size:10px;border-collapse:collapse">
+      <tr><td><strong>No orders visible</strong></td><td>You're not on a team — ask PM Manager</td></tr>
+      <tr><td><strong>"Cannot Update After Submit"</strong></td><td>Field locked; use <strong>Actions</strong> menu instead</td></tr>
+      <tr><td><strong>Buttons missing</strong></td><td>Ctrl+Shift+R to hard-reload browser</td></tr>
+      <tr><td><strong>Warehouse error</strong></td><td>Material rows need a warehouse — ask Planner</td></tr>
+      <tr><td><strong>Wrong company on order</strong></td><td>Don't change; report to PM Manager</td></tr>
+    </table>
+  </div>
+
+  <div class="card info">
+    <h2>📞 Escalation</h2>
+    <table style="width:100%;font-size:10px;border-collapse:collapse">
+      <tr><td><strong>PM Manager</strong></td><td>Order approval, team issues</td></tr>
+      <tr><td><strong>Maintenance Planner</strong></td><td>Scheduling, parts, task lists</td></tr>
+      <tr><td><strong>IT / System Admin</strong></td><td>Login, bugs, missing buttons</td></tr>
+    </table>
+    <p style="margin-top:6px"><strong>Emergency (equipment down + Critical):</strong><br>Call PM Manager directly — system email may delay.</p>
+  </div>
+
+  <div class="card do">
+    <h2>✅ End-of-Shift Checklist</h2>
+    <ul>
+      <li>All open orders I worked on have a Confirmation submitted</li>
+      <li>Any breakdowns reported as Notifications</li>
+      <li>Due measurements logged (check ToDo)</li>
+      <li>Spare parts used are entered on Confirmations</li>
+      <li>Notes added for the next shift on <em>Work Performed</em></li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div><strong>pb_plant_maintenance</strong> · Plant Maintenance Module · Internal Use Only</div>
+  <div>Print this page (Ctrl+P) and keep it on the shop floor · Rev 1.0 · 28-Oct-2026</div>
+</div>
+
+</body>
+</html>
