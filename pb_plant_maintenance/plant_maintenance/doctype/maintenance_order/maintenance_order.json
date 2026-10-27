@@ -37,7 +37,7 @@
    "in_standard_filter": 1},
   {"fieldname": "maintenance_team", "fieldtype": "Link", "label": "Maintenance Team",
    "options": "Asset Maintenance Team"},
-  {"fieldname": "work_center", "fieldtype": "Link", "label": "Work Center",
+  {"fieldname": "work_center", "fieldtype": "Link", "label": "Workstation",
    "options": "Workstation"},
   {"fieldname": "section_break_ref", "fieldtype": "Section Break", "label": "Reference Object"},
   {"fieldname": "equipment", "fieldtype": "Link", "label": "Equipment",

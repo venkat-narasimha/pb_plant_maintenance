@@ -16,7 +16,7 @@
   "dt": "Workstation",
   "fieldname": "pm_work_center_type",
   "fieldtype": "Select",
-  "label": "PM Work Center Type",
+  "label": "PM Workstation Type",
   "options": "\nMechanical\nElectrical\nInstrumentation\nCivil",
   "insert_after": "description",
   "module": "Plant Maintenance",
