@@ -194,7 +194,8 @@
    "fieldname": "operations",
    "fieldtype": "Table",
    "label": "Operations",
-   "options": "Order Operation"
+   "options": "Order Operation",
+   "allow_on_submit": 1
   },
   {
    "fieldname": "section_break_parts",
@@ -205,7 +206,8 @@
    "fieldname": "required_parts",
    "fieldtype": "Table",
    "label": "Required Parts",
-   "options": "Required Spare Part"
+   "options": "Required Spare Part",
+   "allow_on_submit": 1
   },
   {
    "fieldname": "section_break_cost",
@@ -276,7 +278,8 @@
    "fieldname": "attachments",
    "fieldtype": "Table",
    "label": "Attachments",
-   "options": "File Attachment"
+   "options": "File Attachment",
+   "allow_on_submit": 1
   },
   {
    "fieldname": "amended_from",
@@ -290,7 +293,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-27 12:00:00.000000",
+ "modified": "2026-10-27 13:00:00.000000",
  "modified_by": "Administrator",
  "module": "Plant Maintenance",
  "name": "Maintenance Order",
