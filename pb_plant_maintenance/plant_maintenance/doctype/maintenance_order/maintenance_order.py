@@ -51,6 +51,7 @@ class MaintenanceOrder(Document):
             self.downtime_hours = time_diff_in_hours(self.actual_end, self.actual_start)
 
     def on_submit(self):
+        self.db_set("status", "Planned")
         self.status = "Planned"
         self.update_equipment_status("Under Maintenance")
         self.reserve_spare_parts()
