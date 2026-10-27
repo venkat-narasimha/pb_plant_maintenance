@@ -6,37 +6,115 @@
  "engine": "InnoDB",
  "istable": 1,
  "field_order": [
-  "operation_number", "operation_description", "work_center",
-  "column_break_1", "planned_duration", "actual_duration", "labor_cost",
-  "column_break_2", "assigned_to", "status", "completion_date",
-  "section_break_notes", "confirmation_notes"
+  "operation_number",
+  "operation_description",
+  "work_center",
+  "column_break_1",
+  "planned_duration",
+  "actual_duration",
+  "labor_cost",
+  "column_break_2",
+  "assigned_to",
+  "status",
+  "completion_date",
+  "section_break_notes",
+  "confirmation_notes"
  ],
  "fields": [
-  {"fieldname": "operation_number", "fieldtype": "Int", "label": "Op #",
-   "in_list_view": 1, "columns": 1},
-  {"fieldname": "operation_description", "fieldtype": "Text",
-   "label": "Description", "reqd": 1, "in_list_view": 1, "columns": 3},
-  {"fieldname": "work_center", "fieldtype": "Link", "label": "Workstation",
-   "options": "Workstation", "in_list_view": 1, "columns": 2},
-  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
-  {"fieldname": "planned_duration", "fieldtype": "Float", "label": "Planned Hours",
-   "in_list_view": 1, "columns": 1},
-  {"fieldname": "actual_duration", "fieldtype": "Float", "label": "Actual Hours"},
-  {"fieldname": "labor_cost", "fieldtype": "Currency", "label": "Labor Cost",
-   "read_only": 1},
-  {"fieldname": "column_break_2", "fieldtype": "Column Break"},
-  {"fieldname": "assigned_to", "fieldtype": "Link", "label": "Assigned To",
-   "options": "User", "in_list_view": 1, "columns": 2},
-  {"fieldname": "status", "fieldtype": "Select", "label": "Status",
-   "options": "Pending\nIn Progress\nCompleted", "default": "Pending",
-   "in_list_view": 1, "columns": 1},
-  {"fieldname": "completion_date", "fieldtype": "Datetime", "label": "Completion Date"},
-  {"fieldname": "section_break_notes", "fieldtype": "Section Break"},
-  {"fieldname": "confirmation_notes", "fieldtype": "Text", "label": "Notes"}
+  {
+   "fieldname": "operation_number",
+   "fieldtype": "Int",
+   "label": "Op #",
+   "in_list_view": 1,
+   "columns": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "operation_description",
+   "fieldtype": "Text",
+   "label": "Description",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "work_center",
+   "fieldtype": "Link",
+   "label": "Workstation",
+   "options": "Workstation",
+   "in_list_view": 1,
+   "columns": 2,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "planned_duration",
+   "fieldtype": "Float",
+   "label": "Planned Hours",
+   "in_list_view": 1,
+   "columns": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "actual_duration",
+   "fieldtype": "Float",
+   "label": "Actual Hours",
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "labor_cost",
+   "fieldtype": "Currency",
+   "label": "Labor Cost",
+   "read_only": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "label": "Assigned To",
+   "options": "User",
+   "in_list_view": 1,
+   "columns": 2,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nIn Progress\nCompleted",
+   "default": "Pending",
+   "in_list_view": 1,
+   "columns": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "completion_date",
+   "fieldtype": "Datetime",
+   "label": "Completion Date",
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "section_break_notes",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "confirmation_notes",
+   "fieldtype": "Text",
+   "label": "Notes",
+   "allow_on_submit": 1
+  }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-01 00:00:00",
+ "modified": "2026-10-27 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Plant Maintenance",
  "name": "Order Operation",
