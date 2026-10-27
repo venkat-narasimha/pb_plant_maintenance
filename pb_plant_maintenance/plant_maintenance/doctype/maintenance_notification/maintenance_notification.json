@@ -7,80 +7,264 @@
  "engine": "InnoDB",
  "is_submittable": 1,
  "field_order": [
-  "naming_series", "notification_type", "notification_date", "reported_by",
-  "column_break_1", "priority", "status", "breakdown",
-  "section_break_ref", "equipment", "functional_location",
-  "section_break_desc", "short_description", "long_description",
-  "section_break_malfunction", "malfunction_start", "malfunction_end",
-  "column_break_2", "damage_code", "cause_code",
-  "section_break_order", "maintenance_order", "converted_on",
-  "section_break_attach", "attachments", "amended_from"
+  "naming_series",
+  "notification_type",
+  "notification_date",
+  "reported_by",
+  "column_break_1",
+  "priority",
+  "status",
+  "breakdown",
+  "section_break_ref",
+  "equipment",
+  "functional_location",
+  "section_break_desc",
+  "short_description",
+  "long_description",
+  "section_break_malfunction",
+  "malfunction_start",
+  "malfunction_end",
+  "column_break_2",
+  "damage_code",
+  "cause_code",
+  "section_break_order",
+  "maintenance_order",
+  "converted_on",
+  "section_break_attach",
+  "attachments",
+  "amended_from"
  ],
  "fields": [
-  {"fieldname": "naming_series", "fieldtype": "Select", "label": "Series",
-   "options": "MN-.YYYY.-.#####", "reqd": 1, "default": "MN-.YYYY.-.#####", "hidden": 1},
-  {"fieldname": "notification_type", "fieldtype": "Select", "label": "Notification Type",
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "MN-.YYYY.-.#####",
+   "reqd": 1,
+   "default": "MN-.YYYY.-.#####",
+   "hidden": 1
+  },
+  {
+   "fieldname": "notification_type",
+   "fieldtype": "Select",
+   "label": "Notification Type",
    "options": "Malfunction\nMaintenance Request\nActivity Report",
-   "reqd": 1, "default": "Malfunction", "in_standard_filter": 1},
-  {"fieldname": "notification_date", "fieldtype": "Datetime", "label": "Notification Date",
-   "reqd": 1, "default": "Now", "in_list_view": 1},
-  {"fieldname": "reported_by", "fieldtype": "Link", "label": "Reported By",
-   "options": "User", "reqd": 1, "default": "__user"},
-  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
-  {"fieldname": "priority", "fieldtype": "Select", "label": "Priority",
-   "options": "Critical\nHigh\nMedium\nLow", "reqd": 1,
-   "default": "Medium", "in_list_view": 1, "in_standard_filter": 1},
-  {"fieldname": "status", "fieldtype": "Select", "label": "Status",
+   "reqd": 1,
+   "default": "Malfunction",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "notification_date",
+   "fieldtype": "Datetime",
+   "label": "Notification Date",
+   "reqd": 1,
+   "default": "Now",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reported_by",
+   "fieldtype": "Link",
+   "label": "Reported By",
+   "options": "User",
+   "reqd": 1,
+   "default": "__user"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "Critical\nHigh\nMedium\nLow",
+   "reqd": 1,
+   "default": "Medium",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
    "options": "Draft\nOpen\nIn Progress\nConverted to Order\nClosed\nCancelled",
-   "default": "Draft", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
-  {"fieldname": "breakdown", "fieldtype": "Check", "label": "Breakdown",
-   "in_standard_filter": 1},
-  {"fieldname": "section_break_ref", "fieldtype": "Section Break", "label": "Reference Object"},
-  {"fieldname": "equipment", "fieldtype": "Link", "label": "Equipment",
-   "options": "Equipment", "in_list_view": 1, "in_standard_filter": 1},
-  {"fieldname": "functional_location", "fieldtype": "Link", "label": "Functional Location",
-   "options": "Functional Location"},
-  {"fieldname": "section_break_desc", "fieldtype": "Section Break", "label": "Description"},
-  {"fieldname": "short_description", "fieldtype": "Data", "label": "Short Description",
-   "reqd": 1, "in_list_view": 1},
-  {"fieldname": "long_description", "fieldtype": "Text Editor", "label": "Long Description"},
-  {"fieldname": "section_break_malfunction", "fieldtype": "Section Break", "label": "Malfunction Data"},
-  {"fieldname": "malfunction_start", "fieldtype": "Datetime", "label": "Malfunction Start"},
-  {"fieldname": "malfunction_end", "fieldtype": "Datetime", "label": "Malfunction End"},
-  {"fieldname": "column_break_2", "fieldtype": "Column Break"},
-  {"fieldname": "damage_code", "fieldtype": "Link", "label": "Damage Code",
-   "options": "Damage Code"},
-  {"fieldname": "cause_code", "fieldtype": "Link", "label": "Cause Code",
-   "options": "Cause Code"},
-  {"fieldname": "section_break_order", "fieldtype": "Section Break", "label": "Order Conversion"},
-  {"fieldname": "maintenance_order", "fieldtype": "Link", "label": "Maintenance Order",
-   "options": "Maintenance Order", "read_only": 1, "no_copy": 1},
-  {"fieldname": "converted_on", "fieldtype": "Datetime", "label": "Converted On",
-   "read_only": 1, "no_copy": 1},
-  {"fieldname": "section_break_attach", "fieldtype": "Section Break", "label": "Attachments"},
-  {"fieldname": "attachments", "fieldtype": "Table", "label": "Attachments",
-   "options": "File Attachment"},
-  {"fieldname": "amended_from", "fieldtype": "Link", "label": "Amended From",
-   "options": "Maintenance Notification", "read_only": 1, "no_copy": 1, "print_hide": 1}
+   "default": "Draft",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "breakdown",
+   "fieldtype": "Check",
+   "label": "Breakdown",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "section_break_ref",
+   "fieldtype": "Section Break",
+   "label": "Reference Object"
+  },
+  {
+   "fieldname": "equipment",
+   "fieldtype": "Link",
+   "label": "Equipment",
+   "options": "Equipment",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "functional_location",
+   "fieldtype": "Link",
+   "label": "Functional Location",
+   "options": "Functional Location"
+  },
+  {
+   "fieldname": "section_break_desc",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fieldname": "short_description",
+   "fieldtype": "Data",
+   "label": "Short Description",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "long_description",
+   "fieldtype": "Text Editor",
+   "label": "Long Description"
+  },
+  {
+   "fieldname": "section_break_malfunction",
+   "fieldtype": "Section Break",
+   "label": "Malfunction Data"
+  },
+  {
+   "fieldname": "malfunction_start",
+   "fieldtype": "Datetime",
+   "label": "Malfunction Start"
+  },
+  {
+   "fieldname": "malfunction_end",
+   "fieldtype": "Datetime",
+   "label": "Malfunction End"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "damage_code",
+   "fieldtype": "Link",
+   "label": "Damage Code",
+   "options": "Damage Code"
+  },
+  {
+   "fieldname": "cause_code",
+   "fieldtype": "Link",
+   "label": "Cause Code",
+   "options": "Cause Code"
+  },
+  {
+   "fieldname": "section_break_order",
+   "fieldtype": "Section Break",
+   "label": "Order Conversion"
+  },
+  {
+   "fieldname": "maintenance_order",
+   "fieldtype": "Link",
+   "label": "Maintenance Order",
+   "options": "Maintenance Order",
+   "read_only": 1,
+   "no_copy": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "converted_on",
+   "fieldtype": "Datetime",
+   "label": "Converted On",
+   "read_only": 1,
+   "no_copy": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "section_break_attach",
+   "fieldtype": "Section Break",
+   "label": "Attachments"
+  },
+  {
+   "fieldname": "attachments",
+   "fieldtype": "Table",
+   "label": "Attachments",
+   "options": "File Attachment"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "Maintenance Notification",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1
+  }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-01 00:00:00",
+ "modified": "2026-10-27 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Plant Maintenance",
  "name": "Maintenance Notification",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
-  {"amend": 1, "cancel": 1, "create": 1, "delete": 1, "email": 1, "export": 1,
-   "print": 1, "read": 1, "report": 1, "role": "PM Manager", "share": 1,
-   "submit": 1, "write": 1},
-  {"amend": 1, "cancel": 1, "create": 1, "email": 1, "export": 1, "print": 1,
-   "read": 1, "report": 1, "role": "Maintenance Planner", "share": 1,
-   "submit": 1, "write": 1},
-  {"create": 1, "email": 1, "print": 1, "read": 1, "report": 1,
-   "role": "Technician", "submit": 1, "write": 1},
-  {"create": 1, "print": 1, "read": 1, "role": "Operator", "submit": 1}
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "PM Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Maintenance Planner",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Technician",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Operator",
+   "submit": 1
+  }
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
