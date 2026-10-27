@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plant Maintenance Module — Handover &amp; Documentation</title>
+<style>
+  :root{
+    --ink:#1c2733; --muted:#5b6b7b; --line:#dbe3ea; --bg:#f5f7fa;
+    --brand:#0f4c81; --brand2:#1273b8; --ok:#1e8e5a; --warn:#b26a00; --danger:#c0392b;
+    --code:#0d1b2a; --codeink:#e6edf3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  .layout{display:flex;min-height:100vh}
+  nav.side{width:270px;flex:0 0 270px;background:#0e2a43;color:#dce8f5;padding:24px 18px;position:sticky;top:0;height:100vh;overflow-y:auto}
+  nav.side h1{font-size:16px;margin:0 0 4px;color:#fff}
+  nav.side .sub{font-size:12px;color:#9fb8cf;margin-bottom:18px}
+  nav.side a{display:block;color:#cfe9ff;text-decoration:none;padding:5px 8px;border-radius:6px;font-size:13px}
+  nav.side a:hover{background:#17456e}
+  nav.side .grp{margin:14px 0 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7fa3c4}
+  main{flex:1;padding:36px 46px;max-width:1080px}
+  header.doc{border-bottom:3px solid var(--brand);padding-bottom:18px;margin-bottom:26px}
+  header.doc h1{margin:0 0 6px;font-size:30px;color:var(--brand)}
+  header.doc p{margin:4px 0;color:var(--muted)}
+  .badges span{display:inline-block;margin:8px 8px 0 0;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:#e3edf6;color:var(--brand)}
+  h2{margin:44px 0 10px;font-size:23px;color:var(--brand);border-bottom:1px solid var(--line);padding-bottom:6px}
+  h3{margin:26px 0 8px;font-size:17px;color:var(--brand2)}
+  h4{margin:18px 0 6px;font-size:14.5px}
+  p,li{color:var(--ink)}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13.5px;background:#fff}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:#eaf1f7;font-weight:700}
+  tr:nth-child(even) td{background:#fafcfe}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;background:#e8eef4;padding:1px 5px;border-radius:4px}
+  pre{background:var(--code);color:var(--codeink);padding:14px 16px;border-radius:8px;overflow-x:auto;font-size:12.5px;line-height:1.55}
+  pre code{background:none;color:inherit;padding:0}
+  .callout{border-left:4px solid;padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;background:#fff}
+  .callout.note{border-color:var(--brand2);background:#eef5fb}
+  .callout.warn{border-color:var(--warn);background:#fdf6ea}
+  .callout.danger{border-color:var(--danger);background:#fdefec}
+  .callout b.t{display:block;margin-bottom:2px}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;margin:1px 2px}
+  .pill.g{background:#e2f3ea;color:var(--ok)} .pill.b{background:#e3edf6;color:var(--brand)}
+  .pill.y{background:#fdf3df;color:var(--warn)} .pill.r{background:#fbe9e6;color:var(--danger)}
+  .pill.n{background:#eceff2;color:var(--muted)}
+  .flow{margin:8px 0 4px;font-size:13px}
+  .flow .ar{color:var(--muted);margin:0 4px}
+  ul,ol{padding-left:22px}
+  li{margin:3px 0}
+  footer{margin:60px 0 20px;border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--muted)}
+  @media print{nav.side{display:none}main{padding:10px}body{background:#fff}pre{white-space:pre-wrap}}
+  @media (max-width:900px){.layout{display:block}nav.side{position:static;height:auto;width:100%}main{padding:22px}}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="side">
+  <h1>PM Module Handover</h1>
+  <div class="sub">pb_plant_maintenance v1.0 · 27-Oct-2026</div>
+  <div class="grp">Overview</div>
+  <a href="#overview">1. Project Overview</a>
+  <a href="#architecture">2. Architecture &amp; Data Model</a>
+  <div class="grp">Configuration</div>
+  <a href="#config">3. Configuration Reference</a>
+  <a href="#security">4. Roles &amp; Security Model</a>
+  <div class="grp">User Guides</div>
+  <a href="#sop">5. Standard Operating Procedures</a>
+  <a href="#finance">6. Financial &amp; Stock Integration</a>
+  <div class="grp">Analytics &amp; Automation</div>
+  <a href="#reports">7. Reports &amp; Dashboards</a>
+  <a href="#automation">8. Scheduled Automation</a>
+  <a href="#api">9. API Reference</a>
+  <div class="grp">Operations</div>
+  <a href="#ops">10. Operations Runbook</a>
+  <a href="#changelog">11. Build &amp; Fix Log</a>
+  <a href="#testdata">12. Dev Test Data</a>
+  <a href="#glossary">13. Glossary &amp; SAP Mapping</a>
+</nav>
+
+<main>
+<header class="doc">
+  <h1>Plant Maintenance Module — Handover &amp; Documentation</h1>
+  <p>Custom Frappe/ERPNext application <code>pb_plant_maintenance</code> — SAP-PM-equivalent maintenance management.</p>
+  <p>Document version 1.0 · Prepared 27 October 2026 · Status: <b>Development complete, verified; production deployment pending</b></p>
+  <div class="badges">
+    <span>Frappe 15.104.0</span><span>ERPNext 15.103.1</span><span>Python 3.11</span>
+    <span>Site: dev-erp.duckdns.org</span><span>Repo: github.com/venkat-narasimha/pb_plant_maintenance</span>
+  </div>
+</header>
+
+<!-- ================= 1 ================= -->
+<h2 id="overview">1. Project Overview</h2>
+<p>The <code>pb_plant_maintenance</code> app extends ERPNext with enterprise Plant Maintenance (PM) capability modelled on SAP PM: master data (equipment, functional locations, task lists, measuring points), transactions (notifications, orders, confirmations, measurement documents), preventive planning, cost posting, reporting and REST APIs — all implemented as an <b>upgrade-safe custom app</b> with zero core modifications.</p>
+
+<h3>1.1 Delivered components</h3>
+<table>
+  <tr><th>Layer</th><th>Components</th></tr>
+  <tr><td>DocTypes</td><td>19 (6 masters, 7 child tables, 5 transactions, 1 single settings)</td></tr>
+  <tr><td>Reports</td><td>5 script reports (Equipment Register, Maintenance Order List, Cost Analysis, Downtime Analysis, MTBF/MTTR)</td></tr>
+  <tr><td>Dashboard charts</td><td>3 fixtures (Open Orders by Status, Monthly Cost Trend, Breakdown Count)</td></tr>
+  <tr><td>APIs</td><td>7 whitelisted REST endpoints</td></tr>
+  <tr><td>Automation</td><td>8 scheduled tasks (daily / hourly / weekly / monthly) + 2 system notifications</td></tr>
+  <tr><td>Roles</td><td>4 PM roles with row-level security for Technicians and Operators</td></tr>
+  <tr><td>Integrations</td><td>ERPNext Assets, Stock (Stock Entry), Accounting (Journal Entry), HR teams, Notification framework</td></tr>
+</table>
+
+<h3>1.2 Environment</h3>
+<table>
+  <tr><th>Item</th><th>Value</th></tr>
+  <tr><td>Deployment</td><td>Docker (frappe_docker), backend container <code>erpdev-backend-1</code> on VPS</td></tr>
+  <tr><td>Site (dev)</td><td><code>dev-erp.duckdns.org</code></td></tr>
+  <tr><td>Installed apps</td><td>frappe 15.104.0 · erpnext 15.103.1 · hrms 15.63.2 · payments 0.0.1 · pb_material 1.0.1 · <b>pb_plant_maintenance 1.0.0</b></td></tr>
+  <tr><td>Companies on site</td><td><b>Processleap (PL)</b> — active for PM · SORASTRIDE (ST) · Processleap (Demo) (PLD, legacy — do not delete, holds 5 SI / 6 PI)</td></tr>
+  <tr><td>Module name</td><td><code>Plant Maintenance</code> (folder <code>pb_plant_maintenance/plant_maintenance/</code>)</td></tr>
+  <tr><td>Workspace</td><td><code>/app/plant-maintenance</code></td></tr>
+</table>
+
+<!-- ================= 2 ================= -->
+<h2 id="architecture">2. Architecture &amp; Data Model</h2>
+
+<h3>2.1 App layout</h3>
+<pre><code>pb_plant_maintenance/
+├── hooks.py                  # doc_events, scheduler_events, permissions, fixtures
+├── modules.txt               # "Plant Maintenance"
+├── patches.txt               # patch registry
+├── install.py                # after_install: roles + workspace
+├── tasks.py                  # 8 scheduled functions
+├── api/v1.py                 # 7 REST endpoints
+├── utils/                    # asset_sync, order_posting, measurement, plan,
+│                             # permissions, helpers, company_utils
+├── public/js/                # equipment.js, maintenance_order.js,
+│                             # maintenance_notification.js
+├── fixtures/                 # custom_field, role, notification, dashboard_chart
+├── patches/v1_0/             # create_default_damage_codes, setup_default_settings,
+│                             # backfill_company
+├── tests/                    # test_equipment, test_maintenance_order
+└── plant_maintenance/
+    ├── doctype/  (19 folders)
+    └── report/   (5 folders)</code></pre>
+
+<h3>2.2 DocType inventory</h3>
+<table>
+  <tr><th>#</th><th>DocType</th><th>Type</th><th>Naming series</th><th>Purpose</th></tr>
+  <tr><td>1</td><td>Equipment</td><td>Master</td><td>EQ-.####</td><td>Maintainable object, linked to ERPNext Asset</td></tr>
+  <tr><td>2</td><td>Functional Location</td><td>Tree</td><td>FL-.#####</td><td>Hierarchical installation locations</td></tr>
+  <tr><td>3</td><td>Maintenance Task List</td><td>Master</td><td>TL-.####</td><td>Reusable operation templates</td></tr>
+  <tr><td>4</td><td>Measuring Point</td><td>Master</td><td>MP-.####</td><td>Counters &amp; condition measurements</td></tr>
+  <tr><td>5</td><td>Damage Code / Cause Code</td><td>Master</td><td>field: code</td><td>Classification masters (10 damage codes seeded)</td></tr>
+  <tr><td>6</td><td>Maintenance Notification</td><td>Submittable</td><td>MN-.YYYY.-.#####</td><td>Malfunction / request / activity report</td></tr>
+  <tr><td>7</td><td>Maintenance Order</td><td>Submittable</td><td>MO-.YYYY.-.#####</td><td>Central work-order document</td></tr>
+  <tr><td>8</td><td>Maintenance Confirmation</td><td>Submittable</td><td>MC-.YYYY.-.#####</td><td>Actual work, time &amp; materials</td></tr>
+  <tr><td>9</td><td>Measurement Document</td><td>Submittable</td><td>MD-.YYYY.-.#####</td><td>Reading records; exception alerts</td></tr>
+  <tr><td>10</td><td>Maintenance Plan</td><td>Transactional</td><td>MPL-.####</td><td>Preventive schedules (time/counter/condition)</td></tr>
+  <tr><td>11</td><td>PM Settings</td><td>Single</td><td>—</td><td>Global PM configuration</td></tr>
+  <tr><td>12</td><td>Child tables</td><td>Child</td><td>—</td><td>Order Operation, Required Spare Part, Confirmation Material, Maintenance Plan Task, Maintenance Task Operation, Technical Data, File Attachment</td></tr>
+</table>
+
+<h3>2.3 Core relationships</h3>
+<ul>
+  <li>Asset 1—1 Equipment (via <code>Equipment.asset_reference</code> and <code>Asset.pm_equipment</code> custom field).</li>
+  <li>Functional Location 1—N Equipment; Equipment 1—N Notifications / Orders / Measuring Points.</li>
+  <li>Notification 1—1 Order (conversion); Order 1—N Confirmations; Order 1—N Operations &amp; Required Parts.</li>
+  <li>Maintenance Plan 1—N Plan Tasks → auto-created Orders.</li>
+  <li>Order → Journal Entry (<code>Journal Entry.pm_maintenance_order</code>); Confirmation → Stock Entry (<code>Stock Entry.maintenance_confirmation</code>).</li>
+</ul>
+
+<h3>2.4 Status lifecycles</h3>
+<p class="flow"><b>Notification:</b> <span class="pill n">Draft</span><span class="ar">→</span><span class="pill b">Open</span><span class="ar">→</span><span class="pill y">In Progress</span><span class="ar">→</span><span class="pill b">Converted to Order</span><span class="ar">→</span><span class="pill g">Closed</span> <span class="pill r">Cancelled</span></p>
+<p class="flow"><b>Order:</b> <span class="pill n">Draft</span><span class="ar">→</span><span class="pill b">Planned</span> (on submit)<span class="ar">→</span><span class="pill b">Approved</span><span class="ar">→</span><span class="pill y">In Progress</span><span class="ar">→</span><span class="pill g">Completed</span><span class="ar">→</span><span class="pill g">Closed</span> <span class="pill r">Cancelled</span></p>
+<p class="flow"><b>Confirmation:</b> <span class="pill b">Partial</span> · <span class="pill g">Final</span> · <span class="pill r">Cancellation</span></p>
+
+<!-- ================= 3 ================= -->
+<h2 id="config">3. Configuration Reference</h2>
+
+<h3>3.1 PM Settings (Single DocType) — live values</h3>
+<table>
+  <tr><th>Field</th><th>Value (dev)</th><th>Effect</th></tr>
+  <tr><td>Default Cost Center</td><td>Main - PL</td><td>Auto-filled on converted orders and JE/SE rows</td></tr>
+  <tr><td>Default Labor Expense Account</td><td>Maintenance Expense - Labor - PL</td><td>Debit account of labor Journal Entry</td></tr>
+  <tr><td>Default Material Expense Account</td><td>Maintenance Expense - Materials - PL</td><td>Material cost accounting reference</td></tr>
+  <tr><td>Capitalization Threshold</td><td>50000</td><td>Above this, repairs may be capitalized to Asset</td></tr>
+  <tr><td>Notify on Critical Notifications</td><td>✅</td><td>Email PM Manager on Critical priority</td></tr>
+  <tr><td>Notify Overdue After (Days)</td><td>1</td><td>Escalation delay for open notifications</td></tr>
+  <tr><td>Auto-Sync Asset Status</td><td>✅</td><td>Equipment ↔ Asset status synchronization</td></tr>
+</table>
+
+<h3>3.2 Custom fields added to ERPNext core DocTypes</h3>
+<table>
+  <tr><th>DocType</th><th>Field</th><th>Type</th><th>Where to find it in the UI</th></tr>
+  <tr><td>Asset</td><td>pm_equipment</td><td>Link → Equipment (read-only)</td><td>Collapsed <b>Maintenance</b> section (after “Maintenance Required”)</td></tr>
+  <tr><td>Workstation</td><td>pm_work_center_type</td><td>Select</td><td><b>Description</b> tab</td></tr>
+  <tr><td>Workstation</td><td>pm_capacity_per_day</td><td>Float (default 8)</td><td>Description tab</td></tr>
+  <tr><td>Workstation</td><td>pm_hourly_rate</td><td>Currency</td><td>Description tab — drives labor cost</td></tr>
+  <tr><td>Stock Entry</td><td>maintenance_order / maintenance_confirmation</td><td>Link (read-only)</td><td>After Remarks</td></tr>
+  <tr><td>Journal Entry</td><td>pm_maintenance_order</td><td>Link (read-only)</td><td>After User Remark</td></tr>
+  <tr><td>Maintenance Confirmation</td><td>stock_entry</td><td>Link (read-only)</td><td>System-set on material consumption</td></tr>
+</table>
+<div class="callout note"><b class="t">UI tip</b>Both custom-field groups are easy to miss: Asset’s field hides inside a <i>collapsed section</i>, Workstation’s inside the <i>Description tab</i>.</div>
+
+<h3>3.3 Fixtures &amp; seeded data</h3>
+<ul>
+  <li><b>Roles:</b> PM Manager, Maintenance Planner, Technician, Operator.</li>
+  <li><b>Damage Codes:</b> D001–D010 seeded by patch (Bearing Failure, Seal Leak, Motor Burnout, …).</li>
+  <li><b>Notifications:</b> “PM Critical Notification Alert” (priority→Critical), “PM Order Completed Alert” (status→Completed).</li>
+  <li><b>Dashboard charts:</b> PM Open Orders by Status (donut), PM Monthly Cost Trend (line), PM Breakdown Count (bar).</li>
+</ul>
+
+<!-- ================= 4 ================= -->
+<h2 id="security">4. Roles &amp; Security Model</h2>
+<table>
+  <tr><th>DocType</th><th>PM Manager</th><th>Maintenance Planner</th><th>Technician</th><th>Operator</th><th>Accounts User</th></tr>
+  <tr><td>Equipment / Functional Location</td><td>CRUD</td><td>Create/Read/Write</td><td>Read</td><td>Read</td><td>Read</td></tr>
+  <tr><td>Maintenance Notification</td><td>CRUD + submit</td><td>CRUD + submit</td><td>Create/Read/Write + submit</td><td>Create/Read + submit</td><td>—</td></tr>
+  <tr><td>Maintenance Order</td><td>Full + submit/cancel</td><td>Full + submit/cancel</td><td>Read/Write + submit</td><td>Read</td><td>Read</td></tr>
+  <tr><td>Maintenance Confirmation</td><td>Full + submit</td><td>Full + submit</td><td>Create/Read/Write + submit</td><td>—</td><td>—</td></tr>
+  <tr><td>Maintenance Plan</td><td>CRUD</td><td>Create/Read/Write</td><td>Read</td><td>—</td><td>—</td></tr>
+  <tr><td>Measuring Point</td><td>CRUD</td><td>Create/Read/Write</td><td>Create/Read/Write</td><td>Read</td><td>—</td></tr>
+  <tr><td>Reports</td><td>All</td><td>All</td><td>Own records</td><td>—</td><td>Cost reports</td></tr>
+</table>
+<h3>4.1 Row-level security</h3>
+<ul>
+  <li><b>Technicians</b> see Maintenance Orders only where they are the owner <i>or</i> a member of the order’s <code>maintenance_team</code> (membership = <code>Maintenance Team Member.team_member</code> = User).</li>
+  <li><b>Operators</b> see only Maintenance Notifications they reported.</li>
+  <li>Enforced via <code>permission_query_conditions</code> and <code>has_permission</code> hooks in <code>utils/permissions.py</code>.</li>
+</ul>
+<div class="callout warn"><b class="t">Important</b>A Technician with no Asset Maintenance Team membership sees <i>zero</i> orders by design. Always add technicians to a team (Step 15.4 of the build guide).</div>
+
+<!-- ================= 5 ================= -->
+<h2 id="sop">5. Standard Operating Procedures</h2>
+
+<h3>SOP-01 · Create Equipment <span class="pill b">Planner / Manager</span></h3>
+<ol>
+  <li>Ensure the ERPNext <b>Asset</b> exists and is submitted (Assets → Asset).</li>
+  <li>Workspace <i>Plant Maintenance</i> → <b>Equipment</b> → Add.</li>
+  <li>Fill: Equipment Name, <b>Asset</b> link, Company (auto-fetched from Asset), Equipment Category, Criticality, Functional Location, Maintenance Team, Default Workstation.</li>
+  <li>Save → ID <code>EQ-####</code>. Verify the Asset’s Maintenance section now shows the PM Equipment link.</li>
+</ol>
+
+<h3>SOP-02 · Report a problem <span class="pill b">Operator / Technician</span></h3>
+<ol>
+  <li>Open the Equipment → <b>Create → Create Notification</b> (or Notification List → Add).</li>
+  <li>Type = Malfunction; set Short Description; tick <b>Breakdown</b> if the machine is down (auto-sets Priority=Critical and Malfunction Start).</li>
+  <li>Save and <b>Submit</b>. Critical priority emails the PM Manager automatically.</li>
+</ol>
+
+<h3>SOP-03 · Plan the work <span class="pill b">Planner / Manager</span></h3>
+<ol>
+  <li>Open the submitted notification → <b>Convert to Maintenance Order</b>; confirm order type and planned window.</li>
+  <li>On the order: verify Company / Cost Center / Equipment; add <b>Operations</b> rows (Workstation, Planned Hours, Assigned To) and <b>Required Parts</b> (item, qty, warehouse) if needed.</li>
+  <li>Save and <b>Submit</b> → status becomes <span class="pill b">Planned</span>.</li>
+</ol>
+
+<h3>SOP-04 · Execute &amp; confirm <span class="pill b">Technician</span></h3>
+<ol>
+  <li>Open your order → <b>Actions → Start Work</b> (status → In Progress, actual start stamped).</li>
+  <li>After the work: <b>Actions → Record Confirmation</b>; enter Operation #, Labor Hours, materials used (item/qty/warehouse) and Equipment Status After.</li>
+  <li>Save and <b>Submit</b>:
+    <ul>
+      <li><b>Partial</b> → order stays In Progress, operation marked In Progress.</li>
+      <li><b>Final</b> → operation Completed, costs recalculated, order → <span class="pill g">Completed</span>, labor Journal Entry posted, source notification closed, preventive plan tasks rescheduled.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3>SOP-05 · Close-out <span class="pill b">Manager</span></h3>
+<ul>
+  <li><b>Actions → Complete Order</b> (with completion notes) if not already completed by a Final confirmation.</li>
+  <li>Set status <b>Closed</b> manually when administratively finished.</li>
+  <li>Cancelling a confirmation reverts the order to In Progress; cancelling an order reverses Journal/Stock entries and stock reservations.</li>
+</ul>
+
+<h3>SOP-06 · Condition monitoring <span class="pill b">Technician</span></h3>
+<ol>
+  <li>Create a <b>Measurement Document</b> for a Measuring Point (or call API <code>record_measurement</code>).</li>
+  <li>On submit the counter/last-reading updates; a reading outside lower/upper limits auto-creates a High-priority Maintenance Notification.</li>
+</ol>
+
+<h3>SOP-07 · Preventive planning <span class="pill b">Planner</span></h3>
+<ol>
+  <li>Create a <b>Maintenance Plan</b>: equipment/location, team, start date, tasks with periodicity (Daily…Yearly), optional Task List reference, Auto-Create Orders ✅, Lead Time days.</li>
+  <li>The daily scheduler creates orders for due tasks and emails reminders <code>lead_time_days</code> ahead; completions reschedule the next due date automatically.</li>
+</ol>
+
+<!-- ================= 6 ================= -->
+<h2 id="finance">6. Financial &amp; Stock Integration</h2>
+<table>
+  <tr><th>Event</th><th>Posting</th><th>Accounts / fields</th></tr>
+  <tr><td>Final confirmation / order Completed</td><td><b>Journal Entry</b> (labor)</td><td>Debit = PM Settings labor expense account; Credit = company default expense account; both carry the order cost center; linked via <code>pm_maintenance_order</code>; idempotent (no duplicates)</td></tr>
+  <tr><td>Confirmation with materials</td><td><b>Stock Entry</b> (Material Issue)</td><td>Linked via <code>maintenance_order</code> / <code>maintenance_confirmation</code>; confirmation stores <code>stock_entry</code> reference</td></tr>
+  <tr><td>Order submit</td><td>Stock reservation for required parts</td><td>Stock Reservation Entry per part row; released on cancel</td></tr>
+  <tr><td>Order cancel</td><td>Reversals</td><td>JE cancelled, Stock Entry cancelled, reservations released, equipment status restored</td></tr>
+</table>
+<h3>6.1 Multi-company rule (critical)</h3>
+<ul>
+  <li>Every parent PM DocType carries a mandatory <b>Company</b> field, resolved in this order: explicit value → linked Equipment/Notification/Functional Location → Cost Center’s company → user default → Global Defaults.</li>
+  <li>All vouchers (JE/SE) use <code>doc.company</code> — <b>never</b> the user default company.</li>
+  <li>Validation blocks mismatched Cost Center / Equipment companies with an actionable error.</li>
+  <li>Patch <code>backfill_company</code> populated company on all pre-existing records.</li>
+</ul>
+<div class="callout danger"><b class="t">Known site quirk</b>The Administrator user default company was “Processleap (Demo)” while PM data belongs to “Processleap”. It has been corrected, but if financial postings ever fail with a company mismatch, check the user default company and the company fields first.</div>
+
+<!-- ================= 7 ================= -->
+<h2 id="reports">7. Reports &amp; Dashboards</h2>
+<table>
+  <tr><th>Report</th><th>Shows</th><th>Key filters</th></tr>
+  <tr><td>Equipment Register</td><td>Full inventory with category, criticality, status, location, warranty</td><td>Category, criticality, status, location</td></tr>
+  <tr><td>Maintenance Order List</td><td>All orders with schedule, downtime, labor/material/total cost</td><td>Date range, type, status, equipment, priority</td></tr>
+  <tr><td>Cost Analysis</td><td>Cost per equipment + bar chart (labor vs material)</td><td>Date range, equipment, cost center</td></tr>
+  <tr><td>Downtime Analysis</td><td>Downtime hours per order, worst-first</td><td>Date range, equipment</td></tr>
+  <tr><td>MTBF MTTR</td><td>Breakdown count, MTTR, operating hours, MTBF per equipment</td><td>Date range, equipment</td></tr>
+</table>
+<p>Dashboard charts (public): <b>PM Open Orders by Status</b>, <b>PM Monthly Cost Trend</b>, <b>PM Breakdown Count</b>.</p>
+
+<!-- ================= 8 ================= -->
+<h2 id="automation">8. Scheduled Automation</h2>
+<table>
+  <tr><th>Frequency</th><th>Function</th><th>Purpose</th></tr>
+  <tr><td>Daily</td><td>schedule_preventive_maintenance</td><td>Create orders for due plan tasks</td></tr>
+  <tr><td>Daily</td><td>send_maintenance_reminders</td><td>Email reminders lead_time_days before due</td></tr>
+  <tr><td>Daily</td><td>check_overdue_notifications</td><td>Escalate stale notifications to PM Manager</td></tr>
+  <tr><td>Daily</td><td>check_overdue_orders</td><td>Alert teams on orders past planned end</td></tr>
+  <tr><td>Hourly</td><td>check_measurement_alerts</td><td>Create ToDos for overdue measurements</td></tr>
+  <tr><td>Weekly</td><td>generate_maintenance_kpis</td><td>Cache KPI snapshot (7-day TTL)</td></tr>
+  <tr><td>Weekly</td><td>cleanup_old_logs</td><td>Purge PM error logs &gt; 90 days</td></tr>
+  <tr><td>Monthly</td><td>generate_monthly_reports</td><td>Placeholder for compliance reporting</td></tr>
+</table>
+<p>Manual trigger example:</p>
+<pre><code>bench --site dev-erp.duckdns.org execute pb_plant_maintenance.tasks.schedule_preventive_maintenance
+bench --site dev-erp.duckdns.org scheduler-status</code></pre>
+
+<!-- ================= 9 ================= -->
+<h2 id="api">9. API Reference</h2>
+<p>Base: <code>https://&lt;site&gt;/api/method/pb_plant_maintenance.api.v1.&lt;method&gt;</code> · Auth: token or session.</p>
+<table>
+  <tr><th>Endpoint</th><th>Method</th><th>Purpose</th></tr>
+  <tr><td>convert_notification_to_order</td><td>POST</td><td>Notification → Order (args: notification, order_type, planned_start, planned_end, maintenance_team)</td></tr>
+  <tr><td>copy_task_list_to_order</td><td>POST</td><td>Copy task-list operations into a draft order</td></tr>
+  <tr><td>record_measurement</td><td>POST</td><td>IoT/mobile reading ingestion; returns is_exception flag</td></tr>
+  <tr><td>get_technician_dashboard</td><td>GET</td><td>Open orders/notifications for logged-in technician</td></tr>
+  <tr><td>schedule_plan_now</td><td>POST</td><td>Manually schedule one plan’s due tasks</td></tr>
+  <tr><td>get_kpis</td><td>GET</td><td>30-day KPIs (orders, completion rate, cost), cached 15 min</td></tr>
+  <tr><td>get_equipment_history</td><td>GET</td><td>Orders + notifications history per equipment</td></tr>
+</table>
+<pre><code>curl -X GET "https://dev-erp.duckdns.org/api/method/pb_plant_maintenance.api.v1.get_kpis" \
+  -H "Authorization: token API_KEY:API_SECRET" -H "Content-Type: application/json"</code></pre>
+
+<!-- ================= 10 ================= -->
+<h2 id="ops">10. Operations Runbook</h2>
+<h3>10.1 Deploying an app update</h3>
+<pre><code>cd ~/frappe-bench/apps/pb_plant_maintenance &amp;&amp; git pull
+cd ~/frappe-bench
+bench --site &lt;site&gt; migrate          # runs new patches + schema sync
+bench build --app pb_plant_maintenance
+bench --site &lt;site&gt; clear-cache
+bench restart</code></pre>
+<h3>10.2 Routine operations</h3>
+<table>
+  <tr><th>Task</th><th>Command / location</th></tr>
+  <tr><td>Backup</td><td><code>bench --site &lt;site&gt; backup --with-files</code></td></tr>
+  <tr><td>Logs</td><td><code>sites/&lt;site&gt;/logs/{web,scheduler,worker}.log</code>; UI: Error Log list (filter “pb_plant_maintenance”)</td></tr>
+  <tr><td>Scheduler</td><td><code>bench --site &lt;site&gt; scheduler-status</code> / <code>enable-scheduler</code></td></tr>
+  <tr><td>Stale UI</td><td><code>bench build --app pb_plant_maintenance</code> + clear-cache + browser hard reload (Ctrl+Shift+R)</td></tr>
+  <tr><td>Docker DB auth errors</td><td>Restart mariadb + backend containers (transient container-network issue)</td></tr>
+</table>
+<h3>10.3 Production checklist (pending)</h3>
+<ul>
+  <li>Configure an outgoing <b>Email Account</b> (SMTP) — dev currently logs “setup default outgoing Email Account” warnings on notification emails.</li>
+  <li>Create real users and assign the 4 PM roles; remove test users.</li>
+  <li>Review company list; retire “Processleap (Demo)” only after its 5 SI / 6 PI are migrated or archived.</li>
+  <li>Enable scheduler, set up monitoring of scheduler.log, and schedule weekly backups.</li>
+  <li>Deploy via <code>bench get-app</code> + <code>install-app</code> + <code>migrate</code> per build guide §17.2.</li>
+</ul>
+
+<!-- ================= 11 ================= -->
+<h2 id="changelog">11. Build &amp; Fix Log (deviations from the original spec)</h2>
+<table>
+  <tr><th>#</th><th>Issue found</th><th>Resolution</th></tr>
+  <tr><td>1</td><td>Spec used app <code>pm_custom</code> / module “Pm Custom”</td><td>Built as <code>pb_plant_maintenance</code> / module “Plant Maintenance” (folder <code>plant_maintenance</code>)</td></tr>
+  <tr><td>2</td><td>Workspace rendered blank (v15 renders <code>content</code> JSON)</td><td>install.py builds valid v15 content blocks (header/shortcut/card)</td></tr>
+  <tr><td>3</td><td>Spec referenced non-existent “Asset Maintenance Team Member”</td><td>Corrected to <b>Maintenance Team Member</b> with user field <code>team_member</code>; manager field = <code>maintenance_manager</code></td></tr>
+  <tr><td>4</td><td>Spec referenced non-existent “Work Center” DocType</td><td>All links/options/fixtures retargeted to ERPNext <b>Workstation</b>; labels updated</td></tr>
+  <tr><td>5</td><td>Submitted docs blocked post-submit edits</td><td><code>allow_on_submit</code> added to status/schedule/cost fields, child-table fields and the operations/parts Table fields</td></tr>
+  <tr><td>6</td><td>Order status stayed “Draft” after submit</td><td><code>on_submit</code> persists via <code>db_set("status","Planned")</code></td></tr>
+  <tr><td>7</td><td>Totals not recalculated on confirmation (submitted order)</td><td><code>update_order_operations</code> now calls <code>order.calculate_costs()</code></td></tr>
+  <tr><td>8</td><td>Labor JE never posted (on_submit fires before status=Completed)</td><td><code>handle_status_change</code> calls <code>post_maintenance_costs</code> on Completed (idempotent)</td></tr>
+  <tr><td>9</td><td>JE company mismatch (“Processleap (Demo)” vs “Processleap”)</td><td>Company field added to all parent DocTypes + <code>company_utils.py</code> + <code>backfill_company</code> patch; vouchers use <code>doc.company</code></td></tr>
+  <tr><td>10</td><td>Workstation link search crashed on <code>disabled</code> filter</td><td>Removed invalid <code>set_query</code> filter in maintenance_order.js</td></tr>
+  <tr><td>11</td><td>Reports 404 “Module pb_plant_maintenance not found”</td><td>Report folders moved under module folder; Report.module corrected; JSON modified-stamps bumped</td></tr>
+  <tr><td>12</td><td>No outgoing mail configured (dev)</td><td>Accepted for dev; Email Account required for production</td></tr>
+</table>
+
+<!-- ================= 12 ================= -->
+<h2 id="testdata">12. Dev Test Data <span class="pill r">DEV ONLY</span></h2>
+<div class="callout warn"><b class="t">Purge or rename before UAT/production</b>All records below are verification artifacts.</div>
+<table>
+  <tr><th>Record</th><th>Name / value</th></tr>
+  <tr><td>Equipment</td><td>EQ-0001 (linked to submitted Asset)</td></tr>
+  <tr><td>Notification → Order → Confirmation</td><td>MN-2026-00001 (Closed) → MO-2026-00001 (Completed, labor 150) → MC-2026-00001 (Final)</td></tr>
+  <tr><td>Journal Entry</td><td>ACC-JV-2026-00019 (company Processleap)</td></tr>
+  <tr><td>Workstation</td><td>Maintenance Bay 1 (pm_hourly_rate 75)</td></tr>
+  <tr><td>Team</td><td>Mechanical Maintenance Team (manager + planner + technician members)</td></tr>
+  <tr><td>Test users</td><td>pm.manager@ / pm.planner@ / pm.tech@ / pm.operator@yourcompany.com — password <code>PmTest@123</code></td></tr>
+  <tr><td>Accounts created</td><td>Maintenance Expense - Labor - PL; Maintenance Expense - Materials - PL</td></tr>
+</table>
+
+<!-- ================= 13 ================= -->
+<h2 id="glossary">13. Glossary &amp; SAP PM Mapping</h2>
+<table>
+  <tr><th>SAP PM concept / T-code</th><th>This module</th></tr>
+  <tr><td>Equipment (IE01/IE02/IE03)</td><td>Equipment DocType</td></tr>
+  <tr><td>Functional Location (IL01)</td><td>Functional Location (tree)</td></tr>
+  <tr><td>Task List (IA01)</td><td>Maintenance Task List</td></tr>
+  <tr><td>Work Center (IR01)</td><td>ERPNext Workstation + PM custom fields</td></tr>
+  <tr><td>Measuring Point (IK01/IK11)</td><td>Measuring Point + Measurement Document</td></tr>
+  <tr><td>Notification (IW21)</td><td>Maintenance Notification</td></tr>
+  <tr><td>Order (IW31/IW32)</td><td>Maintenance Order</td></tr>
+  <tr><td>Confirmation (IW41/IW44)</td><td>Maintenance Confirmation</td></tr>
+  <tr><td>Maintenance Plan (IP01/IP10)</td><td>Maintenance Plan + daily scheduler</td></tr>
+  <tr><td>Order settlement (KO88)</td><td>Automatic JE/SE posting on completion</td></tr>
+  <tr><td>PMIS analyses (MCI*, MCJB)</td><td>Cost Analysis, Downtime Analysis, MTBF/MTTR reports</td></tr>
+</table>
+
+<footer>
+  <b>Document control</b> · Version 1.0 · 27-Oct-2026 · Author: PM Implementation Team · Reviewer: ____________ ·
+  Next review: before production go-live · Source of truth: repository <code>github.com/venkat-narasimha/pb_plant_maintenance</code> (branch <code>main</code>).
+</footer>
+</main>
+</div>
+</body>
+</html>

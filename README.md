@@ -1,33 +1,79 @@
-### Plant Maintenance
+# Plant Maintenance for ERPNext
 
-Custom Plant Maintenance module for ERPNext by Processbricks
+`pb_plant_maintenance` is a custom Frappe application that adds plant maintenance
+management to ERPNext. It provides equipment and functional-location records,
+maintenance notifications and orders, work confirmations, preventive plans,
+measuring points, reports, and maintenance APIs.
 
-### Installation
+The app integrates with ERPNext Assets, Workstations, Stock, and Accounting. It
+supports multiple companies: maintenance records carry a company, and accounting
+and stock vouchers use the company on the source maintenance record. Keep linked
+Equipment, Cost Centers, and accounts configured for the same company.
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+## Compatibility
+
+- Frappe Framework 15
+- ERPNext 15
+- Python 3.10 or later (provided through the Bench environment)
+
+Frappe and ERPNext are managed by Bench and are not installed as standalone
+Python dependencies by this app.
+
+## Installation
+
+From your Bench directory, get the app from this repository and install it on
+the target site:
 
 ```bash
-cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch develop
-bench install-app pb_plant_maintenance
+bench get-app https://github.com/venkat-narasimha/pb_plant_maintenance
+bench --site <site-name> install-app pb_plant_maintenance
+bench --site <site-name> migrate
 ```
 
-### Contributing
+After installation, assign the appropriate PM roles to users and configure PM
+Settings, including the default cost center and labor expense account. For
+multi-company use, verify that each maintenance record and its linked accounting
+records belong to the intended company.
 
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
+## Updating
+
+From your Bench directory:
+
+```bash
+cd apps/pb_plant_maintenance
+git pull
+cd ../..
+bench --site <site-name> migrate
+bench build --app pb_plant_maintenance
+bench restart
+```
+
+## Development
+
+Run the app tests against a configured Bench site:
+
+```bash
+bench --site <site-name> run-tests --app pb_plant_maintenance
+```
+
+This repository uses pre-commit for formatting and lint checks. Install and
+enable it from the app repository:
 
 ```bash
 cd apps/pb_plant_maintenance
 pre-commit install
+pre-commit run --all-files
 ```
 
-Pre-commit is configured to use the following tools for checking and formatting your code:
+Ruff is configured for Python. Pre-commit also runs JSON/YAML/TOML and Python
+checks, Prettier, and ESLint where applicable.
 
-- ruff
-- eslint
-- prettier
-- pyupgrade
+## Documentation
 
-### License
+See [the handover guide](docs/handover_documentation.html) for the DocType
+inventory, workflows, roles, integrations, reports, scheduled tasks, API
+reference, and operations runbook.
 
-mit
+## License
+
+MIT. See [license.txt](license.txt).
