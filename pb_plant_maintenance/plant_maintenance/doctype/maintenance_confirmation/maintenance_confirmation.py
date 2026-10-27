@@ -53,6 +53,7 @@ class MaintenanceConfirmation(Document):
                     op.completion_date = self.confirmation_date
                     op.confirmation_notes = self.work_performed
                     break
+        order.calculate_costs()
         order.flags.ignore_validate_update_after_submit = True
         order.save()
 

@@ -82,6 +82,7 @@ def create_labor_journal_entry(doc):
 def handle_status_change(doc, method=None):
     """Handle status transitions for already-submitted orders."""
     if doc.status == "Completed":
+        post_maintenance_costs(doc)
         # Update linked notification
         if doc.notification:
             frappe.db.set_value(
