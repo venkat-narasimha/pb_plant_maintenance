@@ -35,10 +35,6 @@ frappe.ui.form.on('Maintenance Order', {
                 frm.events.show_task_list_picker(frm);
             }, __('Actions'));
         }
-
-        frm.set_query('work_center', 'operations', () => ({
-            filters: { 'disabled': 0 }
-        }));
     },
 
     show_task_list_picker(frm) {
