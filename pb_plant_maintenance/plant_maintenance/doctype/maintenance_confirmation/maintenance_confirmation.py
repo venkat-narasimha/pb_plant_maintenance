@@ -6,6 +6,15 @@ from frappe.utils import flt
 
 class MaintenanceConfirmation(Document):
     def validate(self):
+        order_company = frappe.db.get_value(
+            "Maintenance Order", self.maintenance_order, "company"
+        )
+        if order_company and self.company and self.company != order_company:
+            frappe.throw(
+                _("Maintenance Confirmation company must match Maintenance Order {0} "
+                  "company ({1}).").format(self.maintenance_order, order_company)
+            )
+        self.company = order_company or self.company
         self.validate_order_status()
         self.calculate_labor_cost()
         self.validate_materials()
@@ -62,9 +71,7 @@ class MaintenanceConfirmation(Document):
             return
         stock_entry = frappe.new_doc("Stock Entry")
         stock_entry.purpose = "Material Issue"
-        stock_entry.company = frappe.db.get_value(
-            "Maintenance Order", self.maintenance_order, "company"
-        ) or frappe.defaults.get_user_default("Company")
+        stock_entry.company = self.company
         stock_entry.posting_date = self.confirmation_date
         stock_entry.maintenance_order = self.maintenance_order
         stock_entry.maintenance_confirmation = self.name

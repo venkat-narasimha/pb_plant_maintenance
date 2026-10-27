@@ -5,3 +5,4 @@
    # Patches to run after model sync
    pb_plant_maintenance.patches.v1_0.create_default_damage_codes
    pb_plant_maintenance.patches.v1_0.setup_default_settings
+   pb_plant_maintenance.patches.v1_0.backfill_company

@@ -47,7 +47,40 @@ def create_labor_journal_entry(doc):
         )
         return
 
-    company = frappe.defaults.get_user_default("Company")
+    company = doc.company
+    if not company:
+        frappe.throw(
+            _("Cannot create a labor Journal Entry for Maintenance Order {0}: "
+              "Company is not set.").format(doc.name)
+        )
+
+    account_company = frappe.db.get_value("Account", expense_account, "company")
+    cost_center_company = (
+        frappe.db.get_value("Cost Center", doc.cost_center, "company")
+        if doc.cost_center else None
+    )
+    configuration_errors = []
+    if account_company != company:
+        configuration_errors.append(
+            _("Labor expense account {0} belongs to company {1}, not {2}.").format(
+                expense_account, account_company or _("no company"), company
+            )
+        )
+    if not doc.cost_center:
+        configuration_errors.append(_("Maintenance Order {0} has no Cost Center.").format(doc.name))
+    elif cost_center_company != company:
+        configuration_errors.append(
+            _("Cost Center {0} belongs to company {1}, not {2}.").format(
+                doc.cost_center, cost_center_company or _("no company"), company
+            )
+        )
+    if configuration_errors:
+        frappe.throw(
+            _("Cannot create a labor Journal Entry for Maintenance Order {0}: {1}").format(
+                doc.name, " ".join(configuration_errors)
+            )
+        )
+
     je = frappe.new_doc("Journal Entry")
     je.voucher_type = "Journal Entry"
     je.company = company

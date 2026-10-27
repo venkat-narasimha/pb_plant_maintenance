@@ -6,7 +6,7 @@
  "document_type": "Master",
  "engine": "InnoDB",
  "field_order": [
-  "naming_series", "measuring_point_name", "equipment",
+  "naming_series", "company", "measuring_point_name", "equipment",
   "column_break_1", "measuring_point_type", "unit_of_measure", "is_counter",
   "section_break_limits", "lower_limit", "upper_limit",
   "column_break_2", "counter_reading", "last_reading_date", "reading_frequency",
@@ -15,6 +15,8 @@
  "fields": [
   {"fieldname": "naming_series", "fieldtype": "Select", "label": "Series",
    "options": "MP-.####", "reqd": 1, "default": "MP-.####", "hidden": 1},
+  {"fieldname": "company", "fieldtype": "Link", "label": "Company",
+   "options": "Company", "reqd": 1, "in_standard_filter": 1},
   {"fieldname": "measuring_point_name", "fieldtype": "Data", "label": "Name",
    "reqd": 1, "in_list_view": 1},
   {"fieldname": "equipment", "fieldtype": "Link", "label": "Equipment",
@@ -41,7 +43,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-22 00:00:00",
+ "modified": "2026-10-28 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Plant Maintenance",
  "name": "Measuring Point",

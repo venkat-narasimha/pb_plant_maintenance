@@ -3,10 +3,17 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import now_datetime, time_diff_in_hours
 
+from pb_plant_maintenance.utils.company_utils import (
+    resolve_company,
+    validate_company_consistency,
+)
+
 
 class MaintenanceNotification(Document):
     def validate(self):
+        self.company = resolve_company(self)
         self.validate_reference()
+        validate_company_consistency(self)
         self.validate_malfunction_dates()
         self.set_default_status()
 

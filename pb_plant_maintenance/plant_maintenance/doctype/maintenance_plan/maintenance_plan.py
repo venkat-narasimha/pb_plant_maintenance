@@ -3,9 +3,12 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import add_days, add_months, getdate, today
 
+from pb_plant_maintenance.utils.company_utils import resolve_company
+
 
 class MaintenancePlan(Document):
     def validate(self):
+        self.company = resolve_company(self)
         self.validate_reference()
         self.validate_dates()
         self.calculate_next_due_dates()

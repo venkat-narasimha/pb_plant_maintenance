@@ -21,6 +21,7 @@ def convert_notification_to_order(notification, order_type="Corrective",
 
     order = frappe.new_doc("Maintenance Order")
     order.order_type = order_type
+    order.company = notif.company
     order.notification = notif.name
     order.equipment = notif.equipment
     order.functional_location = notif.functional_location
@@ -32,9 +33,29 @@ def convert_notification_to_order(notification, order_type="Corrective",
         frappe.db.get_value("Equipment", notif.equipment, "maintenance_team")
         if notif.equipment else None
     )
-    order.cost_center = settings.default_cost_center or frappe.db.get_value(
-        "Company", frappe.defaults.get_user_default("Company"), "cost_center"
-    )
+    if settings.default_cost_center:
+        cost_center_company = frappe.db.get_value(
+            "Cost Center", settings.default_cost_center, "company"
+        )
+        if cost_center_company != order.company:
+            order.cost_center = None
+            frappe.log_error(
+                _(
+                    "Maintenance Order for Notification {0} was created without a Cost Center. "
+                    "PM Settings Cost Center {1} belongs to {2}, not {3}."
+                ).format(
+                    notif.name,
+                    settings.default_cost_center,
+                    cost_center_company,
+                    order.company,
+                ),
+                _("Mismatched PM Default Cost Center"),
+            )
+            order.flags.ignore_mandatory = True
+        else:
+            order.cost_center = settings.default_cost_center
+    else:
+        order.cost_center = frappe.db.get_value("Company", order.company, "cost_center")
     order.flags.ignore_permissions = True
     order.insert()
     order.submit()

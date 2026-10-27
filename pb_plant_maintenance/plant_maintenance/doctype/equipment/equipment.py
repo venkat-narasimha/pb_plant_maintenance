@@ -2,9 +2,18 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+from pb_plant_maintenance.utils.company_utils import (
+    resolve_company,
+    validate_company_consistency,
+)
+
 
 class Equipment(Document):
     def validate(self):
+        if not self.company and self.asset_reference:
+            self.company = frappe.db.get_value("Asset", self.asset_reference, "company")
+        self.company = resolve_company(self)
+        validate_company_consistency(self)
         self.validate_asset_link()
         self.validate_dates()
         self.sync_asset_status()

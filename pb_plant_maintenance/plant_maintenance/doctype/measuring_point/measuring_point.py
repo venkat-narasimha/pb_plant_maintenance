@@ -1,9 +1,12 @@
 import frappe
 from frappe.model.document import Document
 
+from pb_plant_maintenance.utils.company_utils import resolve_company
+
 
 class MeasuringPoint(Document):
     def validate(self):
+        self.company = resolve_company(self)
         if self.lower_limit and self.upper_limit:
             if self.lower_limit >= self.upper_limit:
                 frappe.throw("Lower Limit must be less than Upper Limit.")

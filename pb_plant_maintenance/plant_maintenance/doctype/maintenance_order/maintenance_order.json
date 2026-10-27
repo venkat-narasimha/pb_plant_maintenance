@@ -8,6 +8,7 @@
  "is_submittable": 1,
  "field_order": [
   "naming_series",
+  "company",
   "order_type",
   "notification",
   "status",
@@ -55,6 +56,14 @@
    "reqd": 1,
    "default": "MO-.YYYY.-.#####",
    "hidden": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "in_standard_filter": 1
   },
   {
    "fieldname": "order_type",
@@ -293,7 +302,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-27 13:00:00.000000",
+ "modified": "2026-10-28 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Plant Maintenance",
  "name": "Maintenance Order",

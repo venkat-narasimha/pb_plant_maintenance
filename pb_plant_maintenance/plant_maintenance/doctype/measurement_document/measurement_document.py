@@ -2,9 +2,12 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+from pb_plant_maintenance.utils.company_utils import resolve_company
+
 
 class MeasurementDocument(Document):
     def validate(self):
+        self.company = resolve_company(self)
         self.check_limits()
 
     def check_limits(self):
